@@ -9,6 +9,8 @@ export type TableStyleDetails = Partial<InternalTableStyleDetails>;
 // Type for table cell values - can be string, number, or undefined
 export type CellValue = string | number | undefined;
 
+export type ValueTransformer = (cellValue: CellValue) => CellValue;
+
 /**
  * Configuration options for a table column
  */
@@ -25,6 +27,8 @@ export interface ColumnOptionsRaw {
   maxLen?: number;
   /** Minimum length of text in the column. Shorter text will be padded with spaces */
   minLen?: number;
+  /** Value transformer */
+  transformer?: ValueTransformer;
 }
 
 /**

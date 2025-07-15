@@ -38,4 +38,5 @@ export const rawColumnToInternalColumn = (
   alignment: (column.alignment ||
     defaultColumnStyles?.alignment ||
     DEFAULT_ROW_ALIGNMENT) as ALIGNMENT,
+  transformer: column.transformer,
 });

@@ -1,4 +1,4 @@
-import { Row } from '../models/common';
+import { Dictionary, Row } from '../models/common';
 import { ComputedColumn } from '../models/external-table';
 import { Column } from '../models/internal-table';
 import { findLenOfColumn } from '../utils/table-helpers';
@@ -66,5 +66,24 @@ export const preProcessRows = (table: TableInternal) => {
   const newRows = table.rows
     .filter((r) => table.filterFunction(r.text))
     .sort((r1, r2) => table.sortFunction(r1.text, r2.text));
+  table.rows = newRows;
+};
+
+export const preProcessTransforms = (table: TableInternal) => {
+  const transformers: Dictionary = {};
+  table.columns
+    .filter((c) => {
+      return !!c.transformer;
+    })
+    .forEach((c) => {
+      transformers[c.name] = c.transformer;
+    });
+  const newRows = table.rows.map((r) => {
+    const transformed = JSON.parse(JSON.stringify(r));
+    Object.keys(transformers).forEach((t) => {
+      transformed.text[t] = transformers[t](transformed.text[t]);
+    });
+    return transformed;
+  });
   table.rows = newRows;
 };

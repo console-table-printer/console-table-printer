@@ -18,14 +18,18 @@ import {
   renderTableHorizontalBorders,
 } from '../utils/table-helpers';
 import TableInternal from './internal-table';
-import { preProcessColumns, preProcessRows } from './table-pre-processors';
+import {
+  preProcessColumns,
+  preProcessRows,
+  preProcessTransforms,
+} from './table-pre-processors';
 
 // ║ Index ║         ║        ║
 const renderOneLine = (
   tableStyle: TableStyleDetails,
   columns: Column[],
   currentLineIndex: number,
-  widthLimitedColumnsArray: { [key: string]: string[] },
+  widthLimitedColumnsArray: { [key: string]: string[]; },
   isHeader: boolean | undefined,
   row: Row,
   colorMap: ColorMap,
@@ -220,6 +224,7 @@ const renderRowSeparator = (table: TableInternal, row: Row): string[] => {
 export const renderTable = (table: TableInternal): string => {
   preProcessColumns(table); // enable / disable cols, find maxLn of each col/ computed Columns
   preProcessRows(table); // sort and filter
+  preProcessTransforms(table); // transform values
 
   const ret: string[] = [];
   renderTableTitle(table).forEach((row) => ret.push(row));
