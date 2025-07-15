@@ -4,6 +4,19 @@ import {
   renderSimpleTable as renderTable,
 } from './src/internalTable/internal-table-printer';
 
-import { COLOR, ALIGNMENT } from './src/models/external-table';
+import {
+  COLOR,
+  ALIGNMENT,
+  ValueTransformer,
+  CellValue,
+} from './src/models/external-table';
 
-export { Table, printTable, renderTable, COLOR, ALIGNMENT };
+export {
+  Table,
+  printTable,
+  renderTable,
+  COLOR,
+  ALIGNMENT,
+  ValueTransformer,
+  CellValue,
+};
