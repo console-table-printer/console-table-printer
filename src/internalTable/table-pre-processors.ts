@@ -55,21 +55,7 @@ const findColumnWidth = (table: TableInternal) => {
   });
 };
 
-export const preProcessColumns = (table: TableInternal) => {
-  createComputedColumnsIfNecessary(table);
-  enableColumnsIfNecessary(table);
-  disableColumnsIfNecessary(table);
-  findColumnWidth(table);
-};
-
-export const preProcessRows = (table: TableInternal) => {
-  const newRows = table.rows
-    .filter((r) => table.filterFunction(r.text))
-    .sort((r1, r2) => table.sortFunction(r1.text, r2.text));
-  table.rows = newRows;
-};
-
-export const preProcessTransforms = (table: TableInternal) => {
+const preProcessTransforms = (table: TableInternal) => {
   const transformers: Dictionary = {};
   table.columns
     .filter((c) => {
@@ -85,5 +71,20 @@ export const preProcessTransforms = (table: TableInternal) => {
     });
     return transformed;
   });
+  table.rows = newRows;
+};
+
+export const preProcessColumns = (table: TableInternal) => {
+  preProcessTransforms(table); // transform values
+  createComputedColumnsIfNecessary(table);
+  enableColumnsIfNecessary(table);
+  disableColumnsIfNecessary(table);
+  findColumnWidth(table);
+};
+
+export const preProcessRows = (table: TableInternal) => {
+  const newRows = table.rows
+    .filter((r) => table.filterFunction(r.text))
+    .sort((r1, r2) => table.sortFunction(r1.text, r2.text));
   table.rows = newRows;
 };
