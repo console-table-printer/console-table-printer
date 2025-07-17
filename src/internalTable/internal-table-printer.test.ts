@@ -4,6 +4,7 @@ import {
   printSimpleTable,
 } from './internal-table-printer';
 import TableInternal from './internal-table';
+import { CellValue } from '../models/external-table';
 
 // Test renderTable function
 describe('renderTable', () => {
@@ -123,6 +124,60 @@ describe('renderTable', () => {
 
     expect(rendered).toContain('Colored Report');
     expect(rendered).toContain('test');
+  });
+
+  it('should render table with transformed data and never transform title', () => {
+    const table = new TableInternal({
+      columns: [
+        { name: 'id' },
+        { name: 'name' },
+        {
+          name: 'score',
+          transformer: (data: CellValue): CellValue => {
+            return Number(data?.toString()).toFixed(2);
+          }
+        }
+      ]
+    });
+
+    table.addRows([
+      { id: 1, name: 'John', score: 85 },
+      { id: 2, name: 'Jane', score: 92 },
+      { id: 3, name: 'Bob', score: 78 },
+    ]);
+
+    const rendered = renderTable(table);
+    expect(rendered).toContain('score');
+    expect(rendered).not.toContain('NaN');
+    expect(rendered).toContain('85.00');
+    expect(rendered).toContain('92.00');
+    expect(rendered).toContain('78.00');
+  });
+
+  it('should render table with transformed data without modifying the original data values', () => {
+    const table = new TableInternal({
+      columns: [
+        {
+          name: 'double',
+          transformer: (data: CellValue): CellValue => {
+            return Number(data?.toString()) * 2;
+          }
+        }
+      ]
+    });
+
+    table.addRows([
+      { double: 1 },
+      { double: 3 },
+      { double: 5 },
+    ]);
+
+    // Call renderTable twice to make see if the values are mutated
+    renderTable(table);
+    const rendered = renderTable(table);
+    expect(rendered).toContain('2');
+    expect(rendered).toContain('6');
+    expect(rendered).toContain('10');
   });
 });
 

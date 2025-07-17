@@ -1,5 +1,6 @@
 import { preProcessColumns, preProcessRows } from './table-pre-processors';
 import TableInternal from './internal-table';
+import { CellValue } from '../models/external-table';
 
 // Test preProcessColumns function
 describe('preProcessColumns', () => {

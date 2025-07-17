@@ -1,4 +1,5 @@
 import { CharLengthDict, COLOR, Dictionary, Row } from '../models/common';
+import { ValueTransformer } from '../models/external-table';
 import { Column, TableLineDetails } from '../models/internal-table';
 import { findWidthInConsole } from './console-utils';
 import {
@@ -16,6 +17,12 @@ const max = (a: number, b: number) => Math.max(a, b);
 // takes any input that is given by user and converts to string
 export const cellText = (text: string | number): string =>
   text === undefined || text === null ? '' : `${text}`;
+
+// evaluate cell text with defined transformer
+export const evaluateCellText = (
+  text: string | number,
+  transformer?: ValueTransformer
+): string => (transformer ? `${transformer(text)}` : cellText(text));
 
 export interface RowOptionsRaw {
   color?: string;
@@ -68,7 +75,7 @@ export const createTableHorizontalBorders = (
 // ("id") => { name: "id", title: "id" }
 export const createColumFromOnlyName = (
   name: string
-): { name: string; title: string } => ({
+): { name: string; title: string; } => ({
   name,
   title: name,
 });
@@ -93,6 +100,7 @@ export const findLenOfColumn = (
 ): number => {
   const columnId = column.name;
   const columnTitle = column.title;
+  const dataTransformer = column.transformer;
   let length = max(0, column?.minLen || 0);
 
   if (column.maxLen) {
@@ -106,7 +114,10 @@ export const findLenOfColumn = (
       (acc, row) =>
         max(
           acc,
-          biggestWordInSentence(cellText(row.text[columnId]), charLength)
+          biggestWordInSentence(
+            evaluateCellText(row.text[columnId], dataTransformer),
+            charLength
+          )
         ),
       length
     );
@@ -118,7 +129,10 @@ export const findLenOfColumn = (
   rows.forEach((row) => {
     length = max(
       length,
-      findWidthInConsole(cellText(row.text[columnId]), charLength)
+      findWidthInConsole(
+        evaluateCellText(row.text[columnId], dataTransformer),
+        charLength
+      )
     );
   });
 
@@ -155,8 +169,8 @@ export const getWidthLimitedColumnsArray = (
   columns: Column[],
   row: Row,
   charLength?: CharLengthDict
-): { [key: string]: string[] } => {
-  const ret: { [key: string]: string[] } = {};
+): { [key: string]: string[]; } => {
+  const ret: { [key: string]: string[]; } = {};
 
   columns.forEach((column) => {
     ret[column.name] = splitTextIntoTextsOfMinLen(
