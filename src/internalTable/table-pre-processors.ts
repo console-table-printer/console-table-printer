@@ -55,27 +55,7 @@ const findColumnWidth = (table: TableInternal) => {
   });
 };
 
-const preProcessTransforms = (table: TableInternal) => {
-  const transformers: Dictionary = {};
-  table.columns
-    .filter((c) => {
-      return !!c.transformer;
-    })
-    .forEach((c) => {
-      transformers[c.name] = c.transformer;
-    });
-  const newRows = table.rows.map((r) => {
-    const transformed = JSON.parse(JSON.stringify(r));
-    Object.keys(transformers).forEach((t) => {
-      transformed.text[t] = transformers[t](transformed.text[t]);
-    });
-    return transformed;
-  });
-  table.rows = newRows;
-};
-
 export const preProcessColumns = (table: TableInternal) => {
-  preProcessTransforms(table); // transform values
   createComputedColumnsIfNecessary(table);
   enableColumnsIfNecessary(table);
   disableColumnsIfNecessary(table);
