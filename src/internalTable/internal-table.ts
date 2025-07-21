@@ -6,6 +6,7 @@ import {
   DefaultColumnOptions,
   RowFilterFunction,
   RowSortFunction,
+  ValueTransformer,
 } from '../models/external-table';
 import { Column, TableStyleDetails } from '../models/internal-table';
 import { ColorMap, DEFAULT_COLOR_MAP } from '../utils/colored-console-line';
@@ -53,6 +54,8 @@ class TableInternal {
   charLength: CharLengthDict;
 
   defaultColumnOptions?: DefaultColumnOptions;
+
+  transformers?: Record<string, ValueTransformer>;
 
   initSimple(columns: string[]) {
     this.columns = columns.map((column) => ({
@@ -108,6 +111,7 @@ class TableInternal {
     this.colorMap = DEFAULT_COLOR_MAP;
     this.charLength = {};
     this.defaultColumnOptions = undefined;
+    this.transformers = {};
 
     if (options instanceof Array) {
       this.initSimple(options);
