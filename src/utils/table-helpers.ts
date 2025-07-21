@@ -75,7 +75,7 @@ export const createTableHorizontalBorders = (
 // ("id") => { name: "id", title: "id" }
 export const createColumFromOnlyName = (
   name: string
-): { name: string; title: string; } => ({
+): { name: string; title: string } => ({
   name,
   title: name,
 });
@@ -169,8 +169,8 @@ export const getWidthLimitedColumnsArray = (
   columns: Column[],
   row: Row,
   charLength?: CharLengthDict
-): { [key: string]: string[]; } => {
-  const ret: { [key: string]: string[]; } = {};
+): { [key: string]: string[] } => {
+  const ret: { [key: string]: string[] } = {};
 
   columns.forEach((column) => {
     ret[column.name] = splitTextIntoTextsOfMinLen(

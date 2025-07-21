@@ -1,5 +1,5 @@
 import { CharLengthDict, Dictionary, Row } from '../models/common';
-import { ComplexOptions, ValueTransformer } from '../models/external-table';
+import { ComplexOptions } from '../models/external-table';
 import { Column, TableStyleDetails } from '../models/internal-table';
 import ColoredConsoleLine, { ColorMap } from '../utils/colored-console-line';
 import { textWithPadding } from '../utils/string-utils';
@@ -25,7 +25,7 @@ const renderOneLine = (
   tableStyle: TableStyleDetails,
   columns: Column[],
   currentLineIndex: number,
-  widthLimitedColumnsArray: { [key: string]: string[]; },
+  widthLimitedColumnsArray: { [key: string]: string[] },
   isHeader: boolean | undefined,
   row: Row,
   colorMap: ColorMap,
@@ -115,7 +115,7 @@ const transformRow = (row: Row, columns: Column[]): Row => {
     transformedRow.text[t] = transformers[t](transformedRow.text[t]);
   });
   return transformedRow;
-}
+};
 
 // ║ 1     ║     I would like some red wine please ║ 10.212 ║
 const renderRow = (table: TableInternal, row: Row): string[] => {
