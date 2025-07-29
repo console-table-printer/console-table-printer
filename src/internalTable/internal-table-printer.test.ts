@@ -135,9 +135,9 @@ describe('renderTable', () => {
           name: 'score',
           transformer: (data: CellValue): CellValue => {
             return Number(data?.toString()).toFixed(2);
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     table.addRows([
@@ -161,16 +161,12 @@ describe('renderTable', () => {
           name: 'double',
           transformer: (data: CellValue): CellValue => {
             return Number(data?.toString()) * 2;
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
-    table.addRows([
-      { double: 1 },
-      { double: 3 },
-      { double: 5 },
-    ]);
+    table.addRows([{ double: 1 }, { double: 3 }, { double: 5 }]);
 
     // Call renderTable twice to make see if the values are mutated
     const firstRender = renderTable(table);

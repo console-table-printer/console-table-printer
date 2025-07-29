@@ -1,5 +1,9 @@
 import { Table } from '../index';
-import { ValueTransformer, CellValue, ComplexOptions } from '../src/models/external-table';
+import {
+  ValueTransformer,
+  CellValue,
+  ComplexOptions,
+} from '../src/models/external-table';
 
 describe('Table Data Transformers Tests', () => {
   it('should render transformed table correctly', () => {
@@ -7,7 +11,8 @@ describe('Table Data Transformers Tests', () => {
       { firstName: 'John', lastName: 'Doe', salary: 50000 },
       { firstName: 'Jane', lastName: 'Smith', salary: 60000 },
     ];
-    const tranformer: ValueTransformer = (data: CellValue): CellValue => Number(data).toFixed(2);
+    const tranformer: ValueTransformer = (data: CellValue): CellValue =>
+      Number(data).toFixed(2);
 
     const options = {
       columns: [
@@ -28,7 +33,7 @@ describe('Table Data Transformers Tests', () => {
         },
       ],
     } as ComplexOptions;
-    
+
     const table = new Table(options);
 
     table.addRows(testData);
@@ -43,7 +48,8 @@ describe('Table Data Transformers Tests', () => {
       { firstName: 'John', lastName: 'Doe', salary: 50000 },
       { firstName: 'Jane', lastName: 'Smith', salary: 60000 },
     ];
-    const tranformer: ValueTransformer = (data: CellValue): CellValue => Number(data).toFixed(2);
+    const tranformer: ValueTransformer = (data: CellValue): CellValue =>
+      Number(data).toFixed(2);
 
     const options = {
       columns: [
@@ -64,7 +70,7 @@ describe('Table Data Transformers Tests', () => {
         },
       ],
     } as ComplexOptions;
-    
+
     const table = new Table(options);
 
     table.addRows(testData);

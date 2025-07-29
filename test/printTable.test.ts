@@ -1,5 +1,9 @@
 import { printTable } from '../index';
-import { CellValue, ComplexOptions, ValueTransformer } from '../src/models/external-table';
+import {
+  CellValue,
+  ComplexOptions,
+  ValueTransformer,
+} from '../src/models/external-table';
 
 describe('Testing printTable function', () => {
   // Basic test without any options
@@ -186,7 +190,8 @@ describe('Testing printTable function', () => {
       { firstName: 'John', lastName: 'Doe', salary: 50000 },
       { firstName: 'Jane', lastName: 'Smith', salary: 60000 },
     ];
-    const tranformer: ValueTransformer = (data: CellValue): CellValue => Number(data).toFixed(2);
+    const tranformer: ValueTransformer = (data: CellValue): CellValue =>
+      Number(data).toFixed(2);
 
     const options = {
       columns: [
