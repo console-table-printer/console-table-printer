@@ -173,11 +173,12 @@ describe('renderTable', () => {
     ]);
 
     // Call renderTable twice to make see if the values are mutated
-    renderTable(table);
-    const rendered = renderTable(table);
-    expect(rendered).toContain('2');
-    expect(rendered).toContain('6');
-    expect(rendered).toContain('10');
+    const firstRender = renderTable(table);
+    const secondRender = renderTable(table);
+    expect(firstRender).toEqual(secondRender);
+    expect(secondRender).toContain('2');
+    expect(secondRender).toContain('6');
+    expect(secondRender).toContain('10');
   });
 });
 
