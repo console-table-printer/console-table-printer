@@ -54,6 +54,10 @@ describe('Jest Test Discovery', () => {
     'test/features/customColor/basic.test.ts',
     'test/features/customColor/render.test.ts',
 
+    'test/features/transform/basic.test.ts',
+    'test/features/transform/render.test.ts',
+    'test/features/transform/verifyOutput.test.ts',
+
     'test/features/defaultColumnStyles/render.test.ts',
     'test/features/defaultColumnStyles/verify.test.ts',
     'test/features/defaultColumnStyles/verifyInternalTable.test.ts',
