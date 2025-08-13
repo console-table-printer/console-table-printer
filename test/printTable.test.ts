@@ -1,5 +1,9 @@
 import { printTable } from '../index';
-import { ComplexOptions } from '../src/models/external-table';
+import {
+  CellValue,
+  ComplexOptions,
+  ValueTransformer,
+} from '../src/models/external-table';
 
 describe('Testing printTable function', () => {
   // Basic test without any options
@@ -161,6 +165,39 @@ describe('Testing printTable function', () => {
         { name: 'firstName' },
         { name: 'lastName' },
         { name: 'salary' },
+      ],
+      computedColumns: [
+        {
+          name: 'fullName',
+          title: 'Full Name',
+          function: (row) => `${row.firstName} ${row.lastName}`,
+        },
+        {
+          name: 'taxed_salary',
+          title: 'After Tax',
+          function: (row) => (row.salary * 0.8).toFixed(2),
+        },
+      ],
+    } as ComplexOptions;
+
+    const result = printTable(testData, options);
+    expect(result).toBeUndefined();
+  });
+
+  // Test with transform function
+  it('should print table with transform columns', () => {
+    const testData = [
+      { firstName: 'John', lastName: 'Doe', salary: 50000 },
+      { firstName: 'Jane', lastName: 'Smith', salary: 60000 },
+    ];
+    const tranformer: ValueTransformer = (data: CellValue): CellValue =>
+      Number(data).toFixed(2);
+
+    const options = {
+      columns: [
+        { name: 'firstName' },
+        { name: 'lastName' },
+        { name: 'salary', transformer: tranformer },
       ],
       computedColumns: [
         {

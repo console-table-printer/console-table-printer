@@ -31,6 +31,7 @@ describe('Jest Test Discovery', () => {
     'test/newLines.test.ts',
     'test/printTable.test.ts',
     'test/render.test.ts',
+    'test/transformer.test.ts',
     'test/types.test.ts',
 
     // Feature Tests

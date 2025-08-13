@@ -101,14 +101,31 @@ const renderWidthLimitedLines = (
   return ret;
 };
 
+const transformRow = (row: Row, columns: Column[]): Row => {
+  const transformedRow = JSON.parse(JSON.stringify(row));
+  const transformers: Dictionary = {};
+  columns
+    .filter((c) => {
+      return !!c.transformer;
+    })
+    .forEach((c) => {
+      transformers[c.name] = c.transformer;
+    });
+  Object.keys(transformers).forEach((t) => {
+    transformedRow.text[t] = transformers[t](transformedRow.text[t]);
+  });
+  return transformedRow;
+};
+
 // ║ 1     ║     I would like some red wine please ║ 10.212 ║
 const renderRow = (table: TableInternal, row: Row): string[] => {
   let ret: string[] = [];
+  const transformedRow = transformRow(row, table.columns);
   ret = ret.concat(
     renderWidthLimitedLines(
       table.tableStyle,
       table.columns,
-      row,
+      transformedRow,
       table.colorMap,
       undefined,
       table.charLength
