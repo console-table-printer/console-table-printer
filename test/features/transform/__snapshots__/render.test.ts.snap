@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Transform Tests: Rendering should verify transformers preserve original data when rendering multiple times 1`] = `
+"┌──────────┬─────────┐
+│ original │ doubled │
+├──────────┼─────────┤
+│        5 │      10 │
+│       10 │      20 │
+└──────────┴─────────┘"
+`;

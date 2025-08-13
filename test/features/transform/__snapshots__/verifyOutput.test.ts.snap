@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Testing transform functionality and verifying the output should handle transformer with fixed length 20 (minLen = maxLen) 1`] = `
+"┌──────────────────────┐
+│    fixedTransform:20 │
+├──────────────────────┤
+│         Formatted: A │
+│    Formatted: Medium │
+│ Formatted: This is a │
+│ very long input that │
+│  should be truncated │
+└──────────────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should handle transformer with minLen 15 and maxLen 25 1`] = `
+"┌───────────────────────────┐
+│  varTransform:min15:max25 │
+├───────────────────────────┤
+│          [Transformed: A] │
+│     [Transformed: Medium] │
+│   [Transformed: This is a │
+│          very long input] │
+└───────────────────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should not apply transformer multiple times when render() is called repeatedly 1`] = `
+"┌──────────┬─────────┐
+│ original │ squared │
+├──────────┼─────────┤
+│        2 │       4 │
+│        3 │       9 │
+│        4 │      16 │
+└──────────┴─────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should not mutate original data when using transformers 1`] = `
+"┌────┬───────┐
+│ id │ value │
+├────┼───────┤
+│  1 │    10 │
+│  2 │    20 │
+│  3 │    30 │
+└────┴───────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformer output length constraints 1`] = `
+"┌────────────┬─────────────────────┐
+│      short │              normal │
+├────────────┼─────────────────────┤
+│  This is a │         Normal text │
+│  very long │                     │
+│  formatted │                     │
+│    version │                     │
+│      of: A │                     │
+│  This is a │ Another normal text │
+│  very long │                     │
+│  formatted │                     │
+│    version │                     │
+│      of: B │                     │
+└────────────┴─────────────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformer output with minLen constraints 1`] = `
+"┌─────────────────┬────────┐
+│        expanded │ normal │
+├─────────────────┼────────┤
+│               H │  World │
+│               T │   Data │
+└─────────────────┴────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformers work when adding data after column definition 1`] = `
+"┌────┬──────────────┐
+│ id │         date │
+├────┼──────────────┤
+│  1 │ [2022-01-01] │
+│  2 │ [2023-01-01] │
+└────┴──────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformers work with chained operations 1`] = `
+"┌──────────┬──────┬──────────┐
+│     col1 │ col2 │     col3 │
+├──────────┼──────┼──────────┤
+│ PREFIX_A │    B │ C_SUFFIX │
+│ PREFIX_X │    Y │ Z_SUFFIX │
+│ PREFIX_1 │    2 │ 3_SUFFIX │
+└──────────┴──────┴──────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformers work with complex column configurations 1`] = `
+"┌───────────────────────────┬──────────────┐
+│    Complex Transformed    │ simpleColumn │
+├───────────────────────────┼──────────────┤
+│        >>>TEST<<<         │       normal │
+│        >>>DATA<<<         │      regular │
+└───────────────────────────┴──────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transformers work with different data types 1`] = `
+"┌────────┬─────────────┐
+│  input │ transformed │
+├────────┼─────────────┤
+│  hello │   STR:HELLO │
+│ 42.567 │   NUM:42.57 │
+│        │        NULL │
+│        │   UNDEFINED │
+│      0 │    NUM:0.00 │
+└────────┴─────────────┘"
+`;
