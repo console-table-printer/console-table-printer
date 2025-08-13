@@ -19,8 +19,8 @@ npm install console-table-printer --save
 
 ## Basic Example
 
-```javascript
-const { printTable } = require('console-table-printer');
+```typescript
+import { printTable } from 'console-table-printer';
 
 // Create a simple task list
 const tasks = [
@@ -39,8 +39,8 @@ printTable(tasks);
 
 You can also create a Table instance and print it:
 
-```javascript
-const { Table } = require('console-table-printer');
+```typescript
+import { Table } from 'console-table-printer';
 
 // Create a game leaderboard
 const leaderboard = new Table();
@@ -61,7 +61,9 @@ leaderboard.printTable();
 
 You can also put some color to your table like this:
 
-```javascript
+```typescript
+import { Table } from 'console-table-printer';
+
 const p = new Table();
 p.addRow({ item: 'Pizza', price: 12.99, rating: '5/5' }, { color: 'red' });
 p.addRow({ item: 'Burger', price: 8.99, rating: '4/5' }, { color: 'green' });
@@ -74,7 +76,9 @@ p.printTable();
 
 You can also put properties based on columns (color/alignment/title)
 
-```javascript
+```typescript
+import { Table } from 'console-table-printer';
+
 const p = new Table({
   title: 'Project Status',
   columns: [
@@ -115,7 +119,9 @@ Official documentation has been moved here: [console-table-documentation](https:
 
 3. Detailed way of creating table instance
 
-```javascript
+```typescript
+import { Table } from 'console-table-printer';
+
 new Table({
   title: '📊 Sales Report Q4 2024', // A text showsup on top of table (optional)
   columns: [
@@ -162,13 +168,13 @@ Check Docs: [color-vals](https://console-table.netlify.app/docs/doc-color)
 
 Example usage: To Create a row of color blue
 
-```js
+```typescript
 table.addRow(rowObject, { color: 'blue' });
 ```
 
 Example usage: To apply blue for all rows
 
-```js
+```typescript
 table.addRows(rowsArray, { color: 'blue' });
 ```
 
