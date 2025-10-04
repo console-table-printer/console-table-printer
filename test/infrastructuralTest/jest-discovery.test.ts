@@ -66,6 +66,8 @@ describe('Jest Test Discovery', () => {
     'test/features/columnMaxMinLen/basic.test.ts',
     'test/features/columnMaxMinLen/render.test.ts',
 
+    'test/features/groupedColumnsHeaders/basic.test.ts',
+
     // Internal Table Tests
     'test/internalTable/alignment.test.ts',
     'test/internalTable/borderStyle.test.ts',
