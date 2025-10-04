@@ -1,4 +1,5 @@
 import { Table } from '../index';
+import { type GroupedColumnsHeaderOrPlaceholder } from '../src/models/external-table';
 import { getTableBody, getTableHeader } from './testUtils/getRawData';
 
 describe('Table Rendering Tests', () => {
@@ -149,5 +150,44 @@ describe('Table Rendering Tests', () => {
       '│  1 │ John │  Active  │',
       '│  2 │ Jane │ Inactive │',
     ]);
+  });
+
+  it('should render grouped columns headers', () => {
+    const table = new Table({
+      groupedColumnsHeaders: [
+        { kind: 'PLACEHOLDER', width: 2 },
+        { name: 'G1', width: 2, alignment: 'left' },
+        { kind: 'PLACEHOLDER', width: 1 },
+        { name: 'VERY LONG GROUP NAME', width: 3 },
+      ],
+    });
+
+    table.addRow({
+      A: `A1`,
+      B: `B1`,
+      C: `C1`,
+      D: `D1`,
+      E: `E1`,
+      F: `F1`,
+      G: `G1`,
+      H: `H1`,
+      I: `I 00001`,
+    });
+
+    table.addRow({
+      A: `A2`,
+      B: `B2`,
+      C: `C2`,
+      D: `D 00002`,
+      E: `E2`,
+      F: `F2`,
+      G: `G2`,
+      H: `H2`,
+      I: `I2`,
+    });
+
+    const rendered = table.render();
+    expect(rendered).toMatchSnapshot();
+    table.printTable();
   });
 });
