@@ -59,6 +59,8 @@ describe('Jest Test Discovery', () => {
     'test/features/defaultColumnStyles/verify.test.ts',
     'test/features/defaultColumnStyles/verifyInternalTable.test.ts',
 
+    'test/features/groupedColumnsHeaders/basic.test.ts',
+
     // Internal Table Tests
     'test/internalTable/alignment.test.ts',
     'test/internalTable/borderStyle.test.ts',
