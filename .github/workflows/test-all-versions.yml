@@ -22,7 +22,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
     steps:
       - uses: actions/checkout@v5
 
@@ -47,7 +52,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: package-dist
+          name: package-dist-${{ matrix.os }}
           path: |
             console-table-printer-*.tgz
             test/githubActionsTest/package-test.js
@@ -55,10 +60,11 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x, 20.x, 22.x]
+        os: [ubuntu-latest, windows-latest]
       fail-fast: false
 
     steps:
@@ -72,9 +78,10 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v5
         with:
-          name: package-dist
+          name: package-dist-${{ matrix.os }}
 
       - name: Test package
+        shell: bash
         run: |
           mkdir test-pkg && cd test-pkg
           mv ../console-table-printer-*.tgz ./

@@ -19,7 +19,8 @@ describe('Jest Test Discovery', () => {
     .filter((line) => line.endsWith('.test.ts') || line.endsWith('.test.js'))
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((file) => path.relative(process.cwd(), file)); // Convert to relative paths
+    // Convert to relative paths, normalizing path separators for cross-platform compatibility
+    .map((file) => path.relative(process.cwd(), file).replace(/\\/g, '/'));
 
   // Expected test files (using relative paths)
   const expectedFiles: string[] = [
