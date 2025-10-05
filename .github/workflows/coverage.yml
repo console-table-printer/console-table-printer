@@ -24,10 +24,10 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - name: Use Node.js 22
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'yarn'
@@ -39,7 +39,7 @@ jobs:
         run: yarn test --coverage
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
