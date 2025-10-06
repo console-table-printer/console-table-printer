@@ -5,12 +5,12 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "module": "commonjs",
-    "declaration": true,
+    "declaration": false,
     "lib": ["es2017", "dom"],
     "strict": true,
     "types": ["jest", "node"],
     "esModuleInterop": true
   },
   "include": ["src/**/*", "index.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/__tests__/**", "**/test/**"]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts", "**/__tests__/**", "**/test/**", "index.d.ts"]
 }
