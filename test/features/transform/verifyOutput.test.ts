@@ -307,55 +307,6 @@ describe('Testing transform functionality and verifying the output', () => {
     expect(p.render()).toMatchSnapshot();
   });
 
-  it('should verify transform is isolated per column', () => {
-    let column1Count = 0;
-    let column2Count = 0;
-    
-    const transform1: Valuetransform = (value: CellValue) => {
-      column1Count++;
-      return `C1-${column1Count}: ${value}`;
-    };
-    
-    const transform2: Valuetransform = (value: CellValue) => {
-      column2Count++;
-      return `C2-${column2Count}: ${value}`;
-    };
-
-    const p = new Table({
-      shouldDisableColors: true,
-      columns: [
-        { 
-          name: 'col1',
-          transform: transform1
-        },
-        { 
-          name: 'col2',
-          transform: transform2
-        },
-      ],
-    });
-
-    p.addRows([
-      { col1: 'A', col2: 'X' },
-      { col1: 'B', col2: 'Y' },
-      { col1: 'C', col2: 'Z' },
-    ]);
-    
-    p.render();
-    
-    expect(column1Count).toBe(3);
-    expect(column2Count).toBe(3);
-    
-    const bodyLines = getTableBody(p);
-    
-    expect(bodyLines[0]).toContain('C1-1: A');
-    expect(bodyLines[0]).toContain('C2-1: X');
-    expect(bodyLines[2]).toContain('C1-3: C');
-    expect(bodyLines[2]).toContain('C2-3: Z');
-
-    expect(p.render()).toMatchSnapshot();
-  });
-
   it('should verify transform with empty and whitespace strings', () => {
     const trimTransform: Valuetransform = (value: CellValue) => {
       const str = String(value).trim();

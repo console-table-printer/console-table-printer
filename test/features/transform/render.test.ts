@@ -281,6 +281,7 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual('│   type │            data │');
     expect(renderedBody).toEqual([
       '│ Simple │            text │',
       '│ Number │              42 │',
