@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Transform Tests: Rendering should handle transform with null and undefined values 1`] = `
+"┌────┬─────────┐
+│ id │  status │
+├────┼─────────┤
+│  1 │  ACTIVE │
+│  2 │     N/A │
+│  3 │     N/A │
+│  4 │ PENDING │
+└────┴─────────┘"
+`;
+
+exports[`Transform Tests: Rendering should preserve original data when rendering multiple times 1`] = `
+"┌────┬────────────────┐
+│ id │          value │
+├────┼────────────────┤
+│  1 │  Call 7: first │
+│  2 │ Call 8: second │
+└────┴────────────────┘"
+`;
+
+exports[`Transform Tests: Rendering should render basic number transform 1`] = `
+"┌─────────┬───────┐
+│ product │ price │
+├─────────┼───────┤
+│ Apple   │ $1.50 │
+│ Banana  │ $0.75 │
+│ Orange  │ $2.25 │
+└─────────┴───────┘"
+`;
+
+exports[`Transform Tests: Rendering should render date transform 1`] = `
+"┌────────────┬──────────────┐
+│      event │         date │
+├────────────┼──────────────┤
+│    Meeting │ Jan 15, 2024 │
+│ Conference │ Feb 28, 2024 │
+│   Workshop │ Mar 10, 2024 │
+└────────────┴──────────────┘"
+`;
+
+exports[`Transform Tests: Rendering should render percentage transform 1`] = `
+"┌──────────────┬───────┐
+│       metric │ value │
+├──────────────┼───────┤
+│    CPU Usage │ 65.0% │
+│ Memory Usage │ 82.3% │
+│   Disk Usage │ 45.7% │
+└──────────────┴───────┘"
+`;
+
+exports[`Transform Tests: Rendering should render string transform with uppercase 1`] = `
+"┌────────────┬────────────────────────┐
+│   username │                  email │
+├────────────┼────────────────────────┤
+│   JOHN_DOE │       john@example.com │
+│ JANE_SMITH │ jane.smith@example.com │
+│ BOB_WILSON │        bob@example.com │
+└────────────┴────────────────────────┘"
+`;
