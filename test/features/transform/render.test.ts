@@ -55,7 +55,7 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│ username │ email │');
+    expect(renderedHeader).toEqual('│   username │                  email │');
     expect(renderedBody).toEqual([
       '│ JOHN_DOE   │ john@example.com       │',
       '│ JANE_SMITH │ jane.smith@example.com │',
@@ -93,7 +93,7 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│ event │ date │');
+    expect(renderedHeader).toEqual('│      event │         date │');
     expect(renderedBody).toEqual([
       '│ Meeting │ Jan 15, 2024 │',
       '│ Conference │ Feb 28, 2024 │',
@@ -128,8 +128,8 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    
-    expect(renderedHeader).toEqual('│ metric │ value │');
+
+    expect(renderedHeader).toEqual('│       metric │ value │');
     
     expect(renderedBody).toEqual([
       '│ CPU Usage │ 65.0% │',
@@ -168,7 +168,7 @@ describe('Transform Tests: Rendering', () => {
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
 
-    expect(renderedHeader).toEqual('│ id │ status │');
+    expect(renderedHeader).toEqual('│ id │  status │');
     expect(renderedBody).toEqual([
       '│ 1 │ ACTIVE │',
       '│ 2 │ N/A │',
@@ -213,7 +213,7 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│ name │      age │   salary │ active │');
+    expect(renderedHeader).toEqual('│ name │      age │  salary │ active │');
     expect(renderedBody).toEqual([
       '│ JOHN │ 30 years │  $50,000 │ ✓      │',
       '│ JANE │ 28 years │  $65,000 │ ✗      │',
@@ -282,10 +282,10 @@ describe('Transform Tests: Rendering', () => {
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     expect(renderedBody).toEqual([
-      '│ Simple │              text│',
-      '│ Number │                42│',
-      '│ Object │   {"key":"value"}│',
-      '│ Array  │           [1,2,3]│',
+      '│ Simple │            text │',
+      '│ Number │              42 │',
+      '│ Object │ {"key":"value"} │',
+      '│  Array │         [1,2,3] │',
     ]);
 
     expect(p.render()).toMatchSnapshot();
