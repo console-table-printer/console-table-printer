@@ -133,7 +133,7 @@ describe('renderTable', () => {
         { name: 'name' },
         {
           name: 'score',
-          transformer: (data: CellValue): CellValue => {
+          transform: (data: CellValue): CellValue => {
             return Number(data?.toString()).toFixed(2);
           },
         },
@@ -159,7 +159,7 @@ describe('renderTable', () => {
       columns: [
         {
           name: 'double',
-          transformer: (data: CellValue): CellValue => {
+          transform: (data: CellValue): CellValue => {
             return Number(data?.toString()) * 2;
           },
         },

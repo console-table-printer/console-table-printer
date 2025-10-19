@@ -1,5 +1,5 @@
 import { CharLengthDict, COLOR, Dictionary, Row } from '../models/common';
-import { ValueTransformer } from '../models/external-table';
+import { Valuetransform } from '../models/external-table';
 import { Column, TableLineDetails } from '../models/internal-table';
 import { findWidthInConsole } from './console-utils';
 import {
@@ -18,11 +18,11 @@ const max = (a: number, b: number) => Math.max(a, b);
 export const cellText = (text: string | number): string =>
   text === undefined || text === null ? '' : `${text}`;
 
-// evaluate cell text with defined transformer
+// evaluate cell text with defined transform
 export const evaluateCellText = (
   text: string | number,
-  transformer?: ValueTransformer
-): string => (transformer ? `${transformer(text)}` : cellText(text));
+  transform?: Valuetransform
+): string => (transform ? `${transform(text)}` : cellText(text));
 
 export interface RowOptionsRaw {
   color?: string;
@@ -100,7 +100,7 @@ export const findLenOfColumn = (
 ): number => {
   const columnId = column.name;
   const columnTitle = column.title;
-  const dataTransformer = column.transformer;
+  const datatransform = column.transform;
   let length = max(0, column?.minLen || 0);
 
   if (column.maxLen) {
@@ -115,7 +115,7 @@ export const findLenOfColumn = (
         max(
           acc,
           biggestWordInSentence(
-            evaluateCellText(row.text[columnId], dataTransformer),
+            evaluateCellText(row.text[columnId], datatransform),
             charLength
           )
         ),
@@ -130,7 +130,7 @@ export const findLenOfColumn = (
     length = max(
       length,
       findWidthInConsole(
-        evaluateCellText(row.text[columnId], dataTransformer),
+        evaluateCellText(row.text[columnId], datatransform),
         charLength
       )
     );

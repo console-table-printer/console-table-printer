@@ -103,16 +103,16 @@ const renderWidthLimitedLines = (
 
 const transformRow = (row: Row, columns: Column[]): Row => {
   const transformedRow = JSON.parse(JSON.stringify(row));
-  const transformers: Dictionary = {};
+  const transforms: Dictionary = {};
   columns
     .filter((c) => {
-      return !!c.transformer;
+      return !!c.transform;
     })
     .forEach((c) => {
-      transformers[c.name] = c.transformer;
+      transforms[c.name] = c.transform;
     });
-  Object.keys(transformers).forEach((t) => {
-    transformedRow.text[t] = transformers[t](transformedRow.text[t]);
+  Object.keys(transforms).forEach((t) => {
+    transformedRow.text[t] = transforms[t](transformedRow.text[t]);
   });
   return transformedRow;
 };
