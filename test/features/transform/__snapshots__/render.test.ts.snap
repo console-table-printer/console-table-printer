@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`Transform Tests: Rendering should apply multiple transforms to different columns 1`] = `
+"┌──────┬──────────┬─────────┬────────┐
+│ name │      age │  salary │ active │
+├──────┼──────────┼─────────┼────────┤
+│ JOHN │ 30 years │ $50,000 │      ✓ │
+│ JANE │ 28 years │ $65,000 │      ✗ │
+│  BOB │ 35 years │ $80,000 │      ✓ │
+└──────┴──────────┴─────────┴────────┘"
+`;
+
+exports[`Transform Tests: Rendering should handle complex object transform 1`] = `
+"┌────────┬─────────────────┐
+│   type │            data │
+├────────┼─────────────────┤
+│ Simple │            text │
+│ Number │              42 │
+│ Object │ {"key":"value"} │
+│  Array │         [1,2,3] │
+└────────┴─────────────────┘"
+`;
+
 exports[`Transform Tests: Rendering should handle transform with null and undefined values 1`] = `
 "┌────┬─────────┐
 │ id │  status │

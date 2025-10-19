@@ -1,5 +1,5 @@
 import { CharLengthDict, COLOR, Dictionary, Row } from '../models/common';
-import { Valuetransform } from '../models/external-table';
+import { CellValue, Valuetransform } from '../models/external-table';
 import { Column, TableLineDetails } from '../models/internal-table';
 import { findWidthInConsole } from './console-utils';
 import {
@@ -15,12 +15,12 @@ import {
 const max = (a: number, b: number) => Math.max(a, b);
 
 // takes any input that is given by user and converts to string
-export const cellText = (text: string | number): string =>
+export const cellText = (text: CellValue): string =>
   text === undefined || text === null ? '' : `${text}`;
 
 // evaluate cell text with defined transform
 export const evaluateCellText = (
-  text: string | number,
+  text: CellValue,
   transform?: Valuetransform
 ): string => (transform ? `${transform(text)}` : cellText(text));
 

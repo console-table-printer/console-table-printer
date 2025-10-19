@@ -57,9 +57,9 @@ describe('Transform Tests: Rendering', () => {
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     expect(renderedHeader).toEqual('│   username │                  email │');
     expect(renderedBody).toEqual([
-      '│ JOHN_DOE   │ john@example.com       │',
+      '│   JOHN_DOE │       john@example.com │',
       '│ JANE_SMITH │ jane.smith@example.com │',
-      '│ BOB_WILSON │ bob@example.com        │',
+      '│ BOB_WILSON │        bob@example.com │',
     ]);
 
     expect(p.render()).toMatchSnapshot();
@@ -95,9 +95,9 @@ describe('Transform Tests: Rendering', () => {
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     expect(renderedHeader).toEqual('│      event │         date │');
     expect(renderedBody).toEqual([
-      '│ Meeting │ Jan 15, 2024 │',
+      '│    Meeting │ Jan 15, 2024 │',
       '│ Conference │ Feb 28, 2024 │',
-      '│ Workshop │ Mar 10, 2024 │',
+      '│   Workshop │ Mar 10, 2024 │',
     ]);
 
     expect(p.render()).toMatchSnapshot();
@@ -132,9 +132,9 @@ describe('Transform Tests: Rendering', () => {
     expect(renderedHeader).toEqual('│       metric │ value │');
     
     expect(renderedBody).toEqual([
-      '│ CPU Usage │ 65.0% │',
+      '│    CPU Usage │ 65.0% │',
       '│ Memory Usage │ 82.3% │',
-      '│ Disk Usage │ 45.7% │',
+      '│   Disk Usage │ 45.7% │',
     ]);
 
     expect(p.render()).toMatchSnapshot();
@@ -170,10 +170,10 @@ describe('Transform Tests: Rendering', () => {
 
     expect(renderedHeader).toEqual('│ id │  status │');
     expect(renderedBody).toEqual([
-      '│ 1 │ ACTIVE │',
-      '│ 2 │ N/A │',
-      '│ 3 │ N/A │',
-      '│ 4 │ PENDING │',
+      '│  1 │  ACTIVE │',
+      '│  2 │     N/A │',
+      '│  3 │     N/A │',
+      '│  4 │ PENDING │',
     ]);
 
     expect(p.render()).toMatchSnapshot();
@@ -215,9 +215,9 @@ describe('Transform Tests: Rendering', () => {
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     expect(renderedHeader).toEqual('│ name │      age │  salary │ active │');
     expect(renderedBody).toEqual([
-      '│ JOHN │ 30 years │  $50,000 │ ✓      │',
-      '│ JANE │ 28 years │  $65,000 │ ✗      │',
-      '│ BOB  │ 35 years │  $80,000 │ ✓      │',
+      '│ JOHN │ 30 years │ $50,000 │      ✓ │',
+      '│ JANE │ 28 years │ $65,000 │      ✗ │',
+      '│  BOB │ 35 years │ $80,000 │      ✓ │',
     ]);
 
     expect(p.render()).toMatchSnapshot();

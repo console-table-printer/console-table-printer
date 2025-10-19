@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Testing transform functionality and verifying the output should verify numeric transforms maintain precision 1`] = `
+"┌─────────┬────────┐
+│   label │  value │
+├─────────┼────────┤
+│      PI │  3.142 │
+│       E │  2.718 │
+│   SQRT2 │  1.414 │
+│ Integer │ 42.000 │
+└─────────┴────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform does not affect sorting 1`] = `
+"┌─────────┬────────────┐
+│  player │      score │
+├─────────┼────────────┤
+│     Bob │ Score: 100 │
+│   David │  Score: 75 │
+│   Alice │  Score: 50 │
+│ Charlie │  Score: 25 │
+└─────────┴────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform handles special characters correctly 1`] = `
+"┌──────────┬───────────────────┐
+│ original │           escaped │
+├──────────┼───────────────────┤
+│ <script> │    &lt;script&gt; │
+│    A & B │         A &amp; B │
+│  "Quote" │ &quot;Quote&quot; │
+│     It's │         It&#039;s │
+└──────────┴───────────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform is applied consistently 1`] = `
+"┌──────────┬─────────────┐
+│ original │ transformed │
+├──────────┼─────────────┤
+│    hello │     [HELLO] │
+│    world │     [WORLD] │
+│     test │      [TEST] │
+└──────────┴─────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform with boolean values 1`] = `
+"┌───────────────┬───────────┐
+│       feature │  enabled  │
+├───────────────┼───────────┤
+│     Dark Mode │   ✅ Yes   │
+│ Notifications │   ❌ No    │
+│     Auto-save │   ✅ Yes   │
+│ Beta Features │ ❓ Unknown │
+└───────────────┴───────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform with conditional logic 1`] = `
+"┌────────────────┬───────┬────────────┐
+│    description │ value │   category │
+├────────────────┼───────┼────────────┤
+│ Negative value │  -5   │ ❌ Negative │
+│     Zero value │   0   │     ⚪ Zero │
+│ Small positive │   3   │    ✅ Small │
+│ Large positive │  100  │   🔵 Large │
+└────────────────┴───────┴────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform with empty and whitespace strings 1`] = `
+"┌────────┬─────────┐
+│  label │   value │
+├────────┼─────────┤
+│ Normal │    text │
+│  Empty │ [EMPTY] │
+│ Spaces │ [EMPTY] │
+│ Padded │   hello │
+└────────┴─────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform with override behavior 1`] = `
+"┌───────────────┬────────────┬─────────────┐
+│ withTransform │ overridden │ noTransform │
+├───────────────┼────────────┼─────────────┤
+│       ~test1~ │    *test2* │       test3 │
+└───────────────┴────────────┴─────────────┘"
+`;
+
+exports[`Testing transform functionality and verifying the output should verify transform works with computed columns 1`] = `
+"┌──────────┬────────┬──────────┬────────┐
+│     item │  price │ quantity │  Total │
+├──────────┼────────┼──────────┼────────┤
+│   Laptop │ $1,200 │        2 │ $2,400 │
+│    Mouse │    $25 │        5 │   $125 │
+│ Keyboard │    $80 │        3 │   $240 │
+└──────────┴────────┴──────────┴────────┘"
+`;
