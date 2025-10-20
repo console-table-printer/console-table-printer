@@ -17,6 +17,7 @@ import {
   getWidthLimitedColumnsArray,
   renderTableHorizontalBorders,
 } from '../utils/table-helpers';
+import { enrichWithGroupedColumnsHeaders } from './grouped-column-headers';
 import TableInternal from './internal-table';
 import { preProcessColumns, preProcessRows } from './table-pre-processors';
 
@@ -234,7 +235,7 @@ const renderRowSeparator = (table: TableInternal, row: Row): string[] => {
   return ret;
 };
 
-export const renderTable = (table: TableInternal): string => {
+export const renderTableInternal = (table: TableInternal): string[] => {
   preProcessColumns(table); // enable / disable cols, find maxLn of each col/ computed Columns
   preProcessRows(table); // sort and filter
 
@@ -248,6 +249,17 @@ export const renderTable = (table: TableInternal): string => {
     renderRowSeparator(table, row).forEach((row_) => ret.push(row_));
   });
   renderTableEnding(table).forEach((row) => ret.push(row));
+
+  if (table.groupedColumnsHeaders.length > 0) {
+    const tableTransformer = enrichWithGroupedColumnsHeaders(table);
+    return tableTransformer(ret);
+  }
+
+  return ret;
+};
+
+export const renderTable = (table: TableInternal): string => {
+  const ret: string[] = renderTableInternal(table);
   return ret.join('\n');
 };
 
