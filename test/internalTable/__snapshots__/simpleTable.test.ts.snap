@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Example: Print a simple Table without table instance creation simple print 1`] = `
 "┌───────┬──────────────────────────────────────┬───────┐

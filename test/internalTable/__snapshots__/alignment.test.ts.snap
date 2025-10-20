@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing column alignment should handle alignment with Unicode and emojis 1`] = `
 "┌───────────┬───────────────┬────────────┐

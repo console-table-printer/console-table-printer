@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing add columnd and verifying the output should handle column with fixed length 5 (minLen = maxLen), but headers are longer 1`] = `
 "┌──────────────┐

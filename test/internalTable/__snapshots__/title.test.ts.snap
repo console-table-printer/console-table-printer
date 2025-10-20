@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing column alignment A very big title 1`] = `
 "[01mSome Random Title which is a quick brown fox jumps over the lazy dog and then the
