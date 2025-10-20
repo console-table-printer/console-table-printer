@@ -8,7 +8,7 @@ describe('Basic Transform Functionality', () => {
         {
           name: 'uppercase',
           alignment: 'left',
-          transform: (value) => String(value).toUpperCase()
+          transform: (value) => String(value).toUpperCase(),
         },
       ],
     });
@@ -28,7 +28,7 @@ describe('Basic Transform Functionality', () => {
         {
           name: 'price',
           alignment: 'right',
-          transform: (value) => `$${Number(value).toFixed(2)}`
+          transform: (value) => `$${Number(value).toFixed(2)}`,
         },
       ],
     });
@@ -49,13 +49,13 @@ describe('Basic Transform Functionality', () => {
           name: 'code',
           alignment: 'center',
           color: 'blue',
-          transform: (value) => `[${value}]`
+          transform: (value) => `[${value}]`,
         },
         {
           name: 'value',
           alignment: 'right',
           color: 'yellow',
-          transform: (value) => `${value}%`
+          transform: (value) => `${value}%`,
         },
       ],
     });
@@ -73,15 +73,15 @@ describe('Basic Transform Functionality', () => {
       columns: [
         {
           name: 'firstName',
-          transform: (value) => String(value).toUpperCase()
+          transform: (value) => String(value).toUpperCase(),
         },
         {
           name: 'lastName',
-          transform: (value) => String(value).toLowerCase()
+          transform: (value) => String(value).toLowerCase(),
         },
         {
           name: 'age',
-          alignment: 'right'
+          alignment: 'right',
         },
       ],
     });
@@ -103,7 +103,7 @@ describe('Basic Transform Functionality', () => {
         {
           name: 'enabled',
           alignment: 'center',
-          transform: (value) => value ? 'YES' : 'NO'
+          transform: (value) => (value ? 'YES' : 'NO'),
         },
       ],
     });
@@ -126,7 +126,7 @@ describe('Basic Transform Functionality', () => {
         {
           name: 'score',
           alignment: 'right',
-          transform: (value) => `${value} pts`
+          transform: (value) => `${value} pts`,
         },
       ],
     });
@@ -144,17 +144,17 @@ describe('Basic Transform Functionality', () => {
       .addColumn({
         name: 'left',
         alignment: 'left',
-        transform: (value) => `<<${value}>>`
+        transform: (value) => `<<${value}>>`,
       })
       .addColumn({
         name: 'center',
         alignment: 'center',
-        transform: (value) => `~~${value}~~`
+        transform: (value) => `~~${value}~~`,
       })
       .addColumn({
         name: 'right',
         alignment: 'right',
-        transform: (value) => `[[${value}]]`
+        transform: (value) => `[[${value}]]`,
       });
 
     p.addRows([
@@ -173,7 +173,7 @@ describe('Basic Transform Functionality', () => {
         { name: 'original' },
         {
           name: 'transformed',
-          transform: (value) => `Modified: ${value}`
+          transform: (value) => `Modified: ${value}`,
         },
       ],
     });

@@ -12,9 +12,9 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'original' },
-        { 
+        {
           name: 'transformed',
-          transform: testTransform
+          transform: testTransform,
         },
       ],
     });
@@ -26,16 +26,18 @@ describe('Testing transform functionality and verifying the output', () => {
     ];
 
     p.addRows(testData);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     bodyLines.forEach((line, index) => {
       const [, originalCol, transformedCol] = line.split('│');
       const original = originalCol.trim();
       const transformed = transformedCol.trim();
-      
+
       expect(original).toBe(testData[index].original);
-      expect(transformed).toBe(`[${testData[index].transformed.toUpperCase()}]`);
+      expect(transformed).toBe(
+        `[${testData[index].transformed.toUpperCase()}]`
+      );
     });
 
     expect(p.render()).toMatchSnapshot();
@@ -50,10 +52,10 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'label' },
-        { 
+        {
           name: 'value',
           alignment: 'right',
-          transform: precisionTransform
+          transform: precisionTransform,
         },
       ],
     });
@@ -66,14 +68,14 @@ describe('Testing transform functionality and verifying the output', () => {
     ];
 
     p.addRows(testData);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     bodyLines.forEach((line, index) => {
       const [, , valueCol] = line.split('│');
       const transformedValue = valueCol.trim();
       const expectedValue = testData[index].value.toFixed(3);
-      
+
       expect(transformedValue).toBe(expectedValue);
     });
 
@@ -93,13 +95,13 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'description' },
-        { 
+        {
           name: 'value',
-          alignment: 'center'
+          alignment: 'center',
         },
-        { 
+        {
           name: 'category',
-          transform: conditionalTransform
+          transform: conditionalTransform,
         },
       ],
     });
@@ -112,16 +114,16 @@ describe('Testing transform functionality and verifying the output', () => {
     ];
 
     p.addRows(testData);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedCategories = [
       '❌ Negative',
       '⚪ Zero',
       '✅ Small',
-      '🔵 Large'
+      '🔵 Large',
     ];
-    
+
     bodyLines.forEach((line, index) => {
       const [, , , categoryCol] = line.split('│');
       const category = categoryCol.trim();
@@ -140,9 +142,9 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'player' },
-        { 
+        {
           name: 'score',
-          transform: displayTransform
+          transform: displayTransform,
         },
       ],
       sort: (row1, row2) => Number(row2.score) - Number(row1.score),
@@ -154,16 +156,16 @@ describe('Testing transform functionality and verifying the output', () => {
       { player: 'Charlie', score: 25 },
       { player: 'David', score: 75 },
     ]);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedOrder = [
       ['Bob', 'Score: 100'],
       ['David', 'Score: 75'],
       ['Alice', 'Score: 50'],
       ['Charlie', 'Score: 25'],
     ];
-    
+
     bodyLines.forEach((line, index) => {
       const [, playerCol, scoreCol] = line.split('│');
       expect(playerCol.trim()).toBe(expectedOrder[index][0]);
@@ -182,12 +184,12 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'item' },
-        { 
+        {
           name: 'price',
-          transform: currencyTransform
+          transform: currencyTransform,
         },
-        { 
-          name: 'quantity'
+        {
+          name: 'quantity',
         },
       ],
       computedColumns: [
@@ -197,8 +199,8 @@ describe('Testing transform functionality and verifying the output', () => {
           function: (row) => {
             const total = Number(row.price) * Number(row.quantity);
             return currencyTransform(total);
-          }
-        }
+          },
+        },
       ],
     });
 
@@ -207,11 +209,11 @@ describe('Testing transform functionality and verifying the output', () => {
       { item: 'Mouse', price: 25, quantity: 5 },
       { item: 'Keyboard', price: 80, quantity: 3 },
     ]);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedTotals = ['$2,400', '$125', '$240'];
-    
+
     bodyLines.forEach((line, index) => {
       const columns = line.split('│');
       const total = columns[4].trim();
@@ -236,9 +238,9 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'original' },
-        { 
+        {
           name: 'escaped',
-          transform: escapeTransform
+          transform: escapeTransform,
         },
       ],
     });
@@ -251,16 +253,16 @@ describe('Testing transform functionality and verifying the output', () => {
     ];
 
     p.addRows(testData);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedEscaped = [
       '&lt;script&gt;',
       'A &amp; B',
       '&quot;Quote&quot;',
       'It&#039;s',
     ];
-    
+
     bodyLines.forEach((line, index) => {
       const [, , escapedCol] = line.split('│');
       expect(escapedCol.trim()).toBe(expectedEscaped[index]);
@@ -280,10 +282,10 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'feature' },
-        { 
+        {
           name: 'enabled',
           transform: boolTransform,
-          alignment: 'center'
+          alignment: 'center',
         },
       ],
     });
@@ -294,11 +296,11 @@ describe('Testing transform functionality and verifying the output', () => {
       { feature: 'Auto-save', enabled: true },
       { feature: 'Beta Features', enabled: null },
     ]);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedValues = ['✅ Yes', '❌ No', '✅ Yes', '❓ Unknown'];
-    
+
     bodyLines.forEach((line, index) => {
       const [, , enabledCol] = line.split('│');
       expect(enabledCol.trim()).toBe(expectedValues[index]);
@@ -317,9 +319,9 @@ describe('Testing transform functionality and verifying the output', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'label' },
-        { 
+        {
           name: 'value',
-          transform: trimTransform
+          transform: trimTransform,
         },
       ],
     });
@@ -330,11 +332,11 @@ describe('Testing transform functionality and verifying the output', () => {
       { label: 'Spaces', value: '   ' },
       { label: 'Padded', value: '  hello  ' },
     ]);
-    
+
     const bodyLines = getTableBody(p);
-    
+
     const expectedValues = ['text', '[EMPTY]', '[EMPTY]', 'hello'];
-    
+
     bodyLines.forEach((line, index) => {
       const [, , valueCol] = line.split('│');
       expect(valueCol.trim()).toBe(expectedValues[index]);
@@ -351,31 +353,31 @@ describe('Testing transform functionality and verifying the output', () => {
     const p = new Table({
       shouldDisableColors: true,
       columns: [
-        { 
+        {
           name: 'withTransform',
-          transform: globalTransform
+          transform: globalTransform,
         },
-        { 
+        {
           name: 'overridden',
-          transform: (v: CellValue) => `*${v}*`
+          transform: (v: CellValue) => `*${v}*`,
         },
-        { 
-          name: 'noTransform'
+        {
+          name: 'noTransform',
         },
       ],
     });
 
     p.addRows([
-      { 
-        withTransform: 'test1', 
-        overridden: 'test2', 
-        noTransform: 'test3' 
+      {
+        withTransform: 'test1',
+        overridden: 'test2',
+        noTransform: 'test3',
       },
     ]);
-    
+
     const bodyLines = getTableBody(p);
     const [, col1, col2, col3] = bodyLines[0].split('│');
-    
+
     expect(col1.trim()).toBe('~test1~');
     expect(col2.trim()).toBe('*test2*');
     expect(col3.trim()).toBe('test3');

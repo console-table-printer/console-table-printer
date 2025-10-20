@@ -8,10 +8,10 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'product', alignment: 'left' },
-        { 
-          name: 'price', 
+        {
+          name: 'price',
           alignment: 'right',
-          transform: (value) => `$${Number(value).toFixed(2)}`
+          transform: (value) => `$${Number(value).toFixed(2)}`,
         },
       ],
     });
@@ -37,13 +37,13 @@ describe('Transform Tests: Rendering', () => {
     const p = new Table({
       shouldDisableColors: true,
       columns: [
-        { 
+        {
           name: 'username',
-          transform: (value) => String(value).toUpperCase()
+          transform: (value) => String(value).toUpperCase(),
         },
-        { 
+        {
           name: 'email',
-          transform: (value) => String(value).toLowerCase()
+          transform: (value) => String(value).toLowerCase(),
         },
       ],
     });
@@ -79,9 +79,9 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'event' },
-        { 
+        {
           name: 'date',
-          transform: dateTransform
+          transform: dateTransform,
         },
       ],
     });
@@ -113,10 +113,10 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'metric' },
-        { 
+        {
           name: 'value',
           alignment: 'right',
-          transform: percentTransform
+          transform: percentTransform,
         },
       ],
     });
@@ -130,7 +130,7 @@ describe('Transform Tests: Rendering', () => {
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
 
     expect(renderedHeader).toEqual('│       metric │ value │');
-    
+
     expect(renderedBody).toEqual([
       '│    CPU Usage │ 65.0% │',
       '│ Memory Usage │ 82.3% │',
@@ -152,9 +152,9 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'id' },
-        { 
+        {
           name: 'status',
-          transform: safeTransform
+          transform: safeTransform,
         },
       ],
     });
@@ -183,25 +183,25 @@ describe('Transform Tests: Rendering', () => {
     const p = new Table({
       shouldDisableColors: true,
       columns: [
-        { 
+        {
           name: 'name',
-          transform: (v) => String(v).toUpperCase()
+          transform: (v) => String(v).toUpperCase(),
         },
-        { 
+        {
           name: 'age',
-          transform: (v) => `${v} years`
+          transform: (v) => `${v} years`,
         },
-        { 
+        {
           name: 'salary',
           alignment: 'right',
           transform: (v) => {
             const formatted = Number(v).toLocaleString('en-US');
             return `$${formatted}`;
-          }
+          },
         },
         {
           name: 'active',
-          transform: (v) => v ? '✓' : '✗'
+          transform: (v) => (v ? '✓' : '✗'),
         },
       ],
     });
@@ -234,9 +234,9 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'id' },
-        { 
+        {
           name: 'value',
-          transform: countingTransform
+          transform: countingTransform,
         },
       ],
     });
@@ -247,9 +247,9 @@ describe('Transform Tests: Rendering', () => {
     ]);
 
     const firstRender = p.render();
-    callCount = 0; 
+    callCount = 0;
     const secondRender = p.render();
-    
+
     expect(firstRender).toEqual(secondRender);
     expect(p.render()).toMatchSnapshot();
   });
@@ -266,9 +266,9 @@ describe('Transform Tests: Rendering', () => {
       shouldDisableColors: true,
       columns: [
         { name: 'type' },
-        { 
+        {
           name: 'data',
-          transform: objectTransform
+          transform: objectTransform,
         },
       ],
     });
