@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing adding columns should allow add new columns in a chain way 1`] = `
 "┌─────┬─────┐

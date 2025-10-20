@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing Row separator Batch Row default separator is working 1`] = `
 "┌───────┬───────────────────────┬───────┐

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Default Column Styles: Rendering Tests should render table with computed columns using default styles 1`] = `
 "┌───────────────────────┬──────────────────────┬──────────────────────┐

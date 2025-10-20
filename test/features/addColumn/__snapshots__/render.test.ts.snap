@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Add Column Tests: Rendering should make sure each column is what its expected to be 1`] = `
 "┌────────────────┬──────────────┐

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing Computed Column all kind of computedColumns are working 1`] = `
 "┌────────────┬─────────────┬─────┬─────────────┬──────────────┐
