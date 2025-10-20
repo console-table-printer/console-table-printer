@@ -1,3 +1,10 @@
+# [2.15.0](https://github.com/console-table-printer/console-table-printer/compare/v2.14.6...v2.15.0) (2025-10-20)
+
+
+### Features
+
+* Transform (transform/format) a column by using a function provided by user ([#560](https://github.com/console-table-printer/console-table-printer/issues/560)) ([d2d67dc](https://github.com/console-table-printer/console-table-printer/commit/d2d67dc402303c19cf34596031e688864b6a1f67))
+
 ## [2.14.6](https://github.com/console-table-printer/console-table-printer/compare/v2.14.5...v2.14.6) (2025-06-25)
 
 
