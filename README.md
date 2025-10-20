@@ -128,6 +128,7 @@ new Table({
     { name: 'region', alignment: 'left', color: 'blue' }, // with alignment and color
     { name: 'sales', alignment: 'right', maxLen: 30 }, // lines bigger than this will be splitted in multiple lines
     { name: 'growth', title: 'Growth %' }, // Title is what will be shown while printing, by default title = name
+    { name: 'price', transform: (value) => `$${Number(value).toFixed(2)}` }, // Transform function to format cell values before display
   ],
   rows: [
     { region: 'North America', sales: '$2.5M', growth: '+15%' },

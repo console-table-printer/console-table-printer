@@ -32,7 +32,7 @@ describe('Jest Test Discovery', () => {
     'test/newLines.test.ts',
     'test/printTable.test.ts',
     'test/render.test.ts',
-    'test/transformer.test.ts',
+    'test/transform.test.ts',
     'test/types.test.ts',
 
     // Feature Tests
@@ -58,6 +58,10 @@ describe('Jest Test Discovery', () => {
     'test/features/defaultColumnStyles/render.test.ts',
     'test/features/defaultColumnStyles/verify.test.ts',
     'test/features/defaultColumnStyles/verifyInternalTable.test.ts',
+
+    'test/features/transform/basic.test.ts',
+    'test/features/transform/render.test.ts',
+    'test/features/transform/verifyOutput.test.ts',
 
     // Internal Table Tests
     'test/internalTable/alignment.test.ts',

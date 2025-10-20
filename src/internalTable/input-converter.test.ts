@@ -10,7 +10,7 @@ describe('rawColumnToInternalColumn', () => {
       color: 'red',
       name: 'col1',
       title: 'col1',
-      transformer: undefined,
+      transform: undefined,
     });
   });
 
@@ -33,7 +33,7 @@ describe('rawColumnToInternalColumn', () => {
       minLen: 8,
       name: 'col1',
       title: 'col1',
-      transformer: undefined,
+      transform: undefined,
     });
   });
 
@@ -50,7 +50,7 @@ describe('rawColumnToInternalColumn', () => {
       color: 'red',
       name: 'col1',
       title: 'col1',
-      transformer: undefined,
+      transform: undefined,
     });
   });
 });

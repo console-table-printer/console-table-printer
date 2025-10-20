@@ -2,7 +2,7 @@ import { printTable } from '../index';
 import {
   CellValue,
   ComplexOptions,
-  ValueTransformer,
+  Valuetransform,
 } from '../src/models/external-table';
 
 describe('Testing printTable function', () => {
@@ -190,14 +190,14 @@ describe('Testing printTable function', () => {
       { firstName: 'John', lastName: 'Doe', salary: 50000 },
       { firstName: 'Jane', lastName: 'Smith', salary: 60000 },
     ];
-    const tranformer: ValueTransformer = (data: CellValue): CellValue =>
+    const tranformer: Valuetransform = (data: CellValue): CellValue =>
       Number(data).toFixed(2);
 
     const options = {
       columns: [
         { name: 'firstName' },
         { name: 'lastName' },
-        { name: 'salary', transformer: tranformer },
+        { name: 'salary', transform: tranformer },
       ],
       computedColumns: [
         {
