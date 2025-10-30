@@ -170,13 +170,15 @@ describe('Column Max/Min Length Tests', () => {
 
   it('should handle global maxLen and minLen from table options', () => {
     const p = new Table({
-      maxLen: 12,
-      minLen: 8,
       columns: [
         { name: 'col1' },
         { name: 'col2' },
         { name: 'col3', maxLen: 5 }, // Override global maxLen
       ],
+      defaultColumnOptions: {
+        maxLen: 12,
+        minLen: 8,
+      }
     });
 
     p.addRows([

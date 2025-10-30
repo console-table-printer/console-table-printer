@@ -262,12 +262,14 @@ describe('Testing column max/min length output verification', () => {
     it('should verify column-specific settings override global settings', () => {
       const p = new Table({
         shouldDisableColors: true,
-        maxLen: 15,
-        minLen: 5,
         columns: [
           { name: 'global' },
           { name: 'override', maxLen: 8, minLen: 10 },
         ],
+        defaultColumnOptions: {
+          maxLen: 15,
+          minLen: 5,
+        }
       });
 
       p.addRows([

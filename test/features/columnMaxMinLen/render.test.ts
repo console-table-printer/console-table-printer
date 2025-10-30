@@ -160,13 +160,15 @@ describe('Column Max/Min Length Tests: Rendering', () => {
   it('should render table with global maxLen and minLen settings', () => {
     const p = new Table({
       shouldDisableColors: true,
-      maxLen: 10,
-      minLen: 8,
       columns: [
         { name: 'col1' },
         { name: 'col2' },
         { name: 'col3', maxLen: 5 }, // Override global
       ],
+      defaultColumnOptions: {
+        maxLen: 10,
+        minLen: 8,
+      }
     });
 
     p.addRows([

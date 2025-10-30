@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Column Max/Min Length Tests: Rendering should correctly render with different alignments and length constraints 1`] = `
+"┌────────────┬────────────┬────────────┐
+│ left       │   center   │      right │
+├────────────┼────────────┼────────────┤
+│ Left       │   Center   │      Right │
+│ aligned    │  aligned   │    aligned │
+│ wrapping   │  wrapping  │   wrapping │
+│ text       │    text    │       text │
+└────────────┴────────────┴────────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should handle empty cells with minLen 1`] = `
+"┌────────────┬────────────┐
+│   required │   optional │
+├────────────┼────────────┤
+│            │            │
+│            │            │
+│      Value │      Value │
+└────────────┴────────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should handle text wrapping with maxLen on multiple rows 1`] = `
+"┌────────────────────────────┬───────┐
+│                    wrapped │ count │
+├────────────────────────────┼───────┤
+│ abcdefghijklmnopqrstuvwxyz │     1 │
+│                      Short │     2 │
+│       12345678901234567890 │     3 │
+└────────────────────────────┴───────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should properly render columns with maxLen restrictions 1`] = `
+"┌───────┬────────────┬──────────────────────────────────────┐
+│ short │     medium │                               normal │
+├───────┼────────────┼──────────────────────────────────────┤
+│  This │     Medium │ This text has no length restrictions │
+│    is │     length │                                      │
+│  very │  text here │                                      │
+│  long │            │                                      │
+│  text │            │                                      │
+│    OK │       Good │                              Perfect │
+└───────┴────────────┴──────────────────────────────────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should properly render columns with minLen restrictions 1`] = `
+"┌─────────────────┬─────────────┐
+│ padded          │      normal │
+├─────────────────┼─────────────┤
+│ Short           │ Normal text │
+│ X               │ Another row │
+└─────────────────┴─────────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should render numeric values with length constraints 1`] = `
+"┌───────┬────────────────┬────────────┐
+│    id │         amount │ percentage │
+├───────┼────────────────┼────────────┤
+│     1 │ 1234567890.123 │      45.67 │
+│   999 │             42 │        100 │
+│    42 │         0.0001 │          0 │
+└───────┴────────────────┴────────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should render table with global maxLen and minLen settings 1`] = `
+"┌────────────┬────────────┬──────────┐
+│       col1 │       col2 │     col3 │
+├────────────┼────────────┼──────────┤
+│         Hi │      Hello │  Testing │
+│    This is │         OK │        X │
+│     longer │            │          │
+│   than ten │            │          │
+└────────────┴────────────┴──────────┘"
+`;
+
+exports[`Column Max/Min Length Tests: Rendering should render with both maxLen and minLen constraints 1`] = `
+"┌─────────────────┬────────────┐
+│     constrained │      value │
+├─────────────────┼────────────┤
+│              Hi │  Too short │
+│    Perfect size │ Just right │
+│    This text is │   Too long │
+│  definitely way │            │
+│    too long for │            │
+│      the column │            │
+└─────────────────┴────────────┘"
+`;

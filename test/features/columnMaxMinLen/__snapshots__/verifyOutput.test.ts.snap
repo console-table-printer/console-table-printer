@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Testing column max/min length output verification Combined maxLen and minLen verification should verify both constraints are applied correctly 1`] = `
+"┌──────────────┐
+│  constrained │
+├──────────────┤
+│           Hi │
+│     Perfect8 │
+│      This is │
+│      exactly │
+│      twelve! │
+└──────────────┘"
+`;
+
+exports[`Testing column max/min length output verification Combined maxLen and minLen verification should verify edge cases with exact length boundaries 1`] = `
+"┌─────────────┐
+│       exact │
+├─────────────┤
+│   123456789 │
+│  1234567890 │
+│ 12345678901 │
+└─────────────┘"
+`;
+
+exports[`Testing column max/min length output verification Empty and null value handling should verify empty values with length constraints 1`] = `
+"┌────────────┬──────────┐
+│   required │ optional │
+├────────────┼──────────┤
+│            │          │
+│            │          │
+│            │          │
+└────────────┴──────────┘"
+`;
+
+exports[`Testing column max/min length output verification Global vs column-specific length settings should verify column-specific settings override global settings 1`] = `
+"┌─────────────────┬────────────┐
+│          global │   override │
+├─────────────────┼────────────┤
+│              Hi │         Hi │
+│  This is a very │  This is a │
+│       long text │  very long │
+│                 │       text │
+└─────────────────┴────────────┘"
+`;
+
+exports[`Testing column max/min length output verification Header length constraints should verify headers respect column length settings 1`] = `
+"┌───────────────────────┬─────────────────┐
+│ very_long_header_name │           short │
+├───────────────────────┼─────────────────┤
+│                  data │            data │
+└───────────────────────┴─────────────────┘"
+`;
+
+exports[`Testing column max/min length output verification Special characters and unicode handling should correctly handle special characters with length constraints 1`] = `
+"┌────────────┐
+│    special │
+├────────────┤
+│       →←↑↓ │
+│    ✓ ✗ ≈ ≠ │
+│       café │
+│     résumé │
+└────────────┘"
+`;
+
+exports[`Testing column max/min length output verification maxLen verification should verify maxLen with different data types 1`] = `
+"┌─────────────────┐
+│            data │
+├─────────────────┤
+│    String value │
+│    that is long │
+│ 123456789012345 │
+│            true │
+│ [object Object] │
+└─────────────────┘"
+`;
+
+exports[`Testing column max/min length output verification maxLen verification should verify text is wrapped at maxLen boundary 1`] = `
+"┌────────────────────────────┐
+│                    wrapped │
+├────────────────────────────┤
+│ abcdefghijklmnopqrstuvwxyz │
+└────────────────────────────┘"
+`;
+
+exports[`Testing column max/min length output verification maxLen verification should verify word breaking behavior with maxLen 1`] = `
+"┌────────────┐
+│       text │
+├────────────┤
+│      Hello │
+│      World │
+│    Testing │
+└────────────┘"
+`;
+
+exports[`Testing column max/min length output verification minLen verification should verify minLen does not affect text longer than minLen 1`] = `
+"┌────────────────┐
+│           text │
+├────────────────┤
+│             Hi │
+│          12345 │
+│ This is longer │
+└────────────────┘"
+`;
+
+exports[`Testing column max/min length output verification minLen verification should verify minLen with different alignments 1`] = `
+"┌──────────────┬──────────────┬──────────────┐
+│ left         │    center    │        right │
+├──────────────┼──────────────┼──────────────┤
+│ L            │      C       │            R │
+└──────────────┴──────────────┴──────────────┘"
+`;
+
+exports[`Testing column max/min length output verification minLen verification should verify padding is added to meet minLen 1`] = `
+"┌─────────────────┐
+│          padded │
+├─────────────────┤
+│           Short │
+│               X │
+│                 │
+└─────────────────┘"
+`;
