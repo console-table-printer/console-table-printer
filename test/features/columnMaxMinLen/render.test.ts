@@ -27,12 +27,16 @@ describe('Column Max/Min Length Tests: Rendering', () => {
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     expect(renderedHeader).toEqual(
-      ' short      medium                                normal '
+      '│ short │     medium │                               normal │'
     );
-
-    // First row should have wrapped text due to maxLen
-    expect(renderedBody[0]).toMatch(/ This /);
-    expect(renderedBody[1]).toMatch(/ is ve/);
+    expect(renderedBody).toEqual([
+      '│  This │     Medium │ This text has no length restrictions │',
+      '│    is │     length │                                      │',
+      '│  very │  text here │                                      │',
+      '│  long │            │                                      │',
+      '│  text │            │                                      │',
+      '│    OK │       Good │                              Perfect │',
+    ]);
 
     // Add snapshot test
     expect(p.render()).toMatchSnapshot();
@@ -53,13 +57,13 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-
-    // Header should respect minLen
-    expect(renderedHeader).toMatch(/\s+padded\s+\s+normal\s+/);
-
-    // Body should have padded content
-    expect(renderedBody[0]).toMatch(/ Short\s{10} /);
-    expect(renderedBody[1]).toMatch(/ X\s{14} /);
+    expect(renderedHeader).toEqual(
+      '│ padded          │      normal │'
+    );
+    expect(renderedBody).toEqual([
+      '│ Short           │ Normal text │',
+      '│ X               │ Another row │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -79,21 +83,15 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       { wrapped: '12345678901234567890', count: 3 },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // First row should be wrapped into multiple lines
-    expect(renderedBody[0]).toMatch(/ abcdefgh  1 /);
-    expect(renderedBody[1]).toMatch(/ ijklmnop    /);
-    expect(renderedBody[2]).toMatch(/ qrstuvwx    /);
-    expect(renderedBody[3]).toMatch(/ yz\s+   /);
-
-    // Second row should not wrap
-    expect(renderedBody[4]).toMatch(/ Short\s+ 2 /);
-
-    // Third row should be wrapped
-    expect(renderedBody[5]).toMatch(/ 12345678  3 /);
-    expect(renderedBody[6]).toMatch(/ 90123456    /);
-    expect(renderedBody[7]).toMatch(/ 7890\s+   /);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│                    wrapped │ count │'
+    );
+    expect(renderedBody).toEqual([
+      '│ abcdefghijklmnopqrstuvwxyz │     1 │',
+      '│                      Short │     2 │',
+      '│       12345678901234567890 │     3 │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -113,17 +111,18 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       { constrained: 'This text is definitely way too long for the column', value: 'Too long' },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // First row should be padded to minLen
-    expect(renderedBody[0]).toMatch(/ Hi\s{8} /);
-
-    // Second row should fit normally
-    expect(renderedBody[1]).toMatch(/ Perfect size\s+/);
-
-    // Third row should be wrapped at maxLen
-    expect(renderedBody[2]).toMatch(/ This text is d /);
-    expect(renderedBody[3]).toMatch(/ efinitely way\s+/);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│     constrained │      value │'
+    );
+    expect(renderedBody).toEqual([
+      '│              Hi │  Too short │',
+      '│    Perfect size │ Just right │',
+      '│    This text is │   Too long │',
+      '│  definitely way │            │',
+      '│    too long for │            │',
+      '│      the column │            │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -146,13 +145,16 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // Check that text is wrapped and properly aligned
-    // Left aligned
-    expect(renderedBody[0]).toMatch(/ Left align /);
-    expect(renderedBody[1]).toMatch(/ ed wrappin /);
-    expect(renderedBody[2]).toMatch(/ g text\s+/);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│ left       │   center   │      right │'
+    );
+    expect(renderedBody).toEqual([
+      '│ Left       │   Center   │      Right │',
+      '│ aligned    │  aligned   │    aligned │',
+      '│ wrapping   │  wrapping  │   wrapping │',
+      '│ text       │    text    │       text │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -176,17 +178,16 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       { col1: 'This is longer than ten', col2: 'OK', col3: 'X' },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // col1 should respect global minLen (8) and maxLen (10)
-    expect(renderedBody[0]).toMatch(/ Hi\s{6} /); // Padded to 8
-
-    // col2 should also respect global settings
-    expect(renderedBody[0]).toMatch(/ Hello\s{3} /); // Padded to 8
-
-    // col3 should use its own maxLen (5)
-    expect(renderedBody[0]).toMatch(/ Testi /);
-    expect(renderedBody[1]).toMatch(/ ng\s+/);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│       col1 │       col2 │     col3 │'
+    );
+    expect(renderedBody).toEqual([
+      '│         Hi │      Hello │  Testing │',
+      '│    This is │         OK │        X │',
+      '│     longer │            │          │',
+      '│   than ten │            │          │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -206,12 +207,15 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       { required: 'Value', optional: 'Value' },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // Empty values should be padded to minLen
-    expect(renderedBody[0]).toMatch(/\s{10} \s{10} /);
-    expect(renderedBody[1]).toMatch(/\s{10} \s{10} /);
-    expect(renderedBody[2]).toMatch(/ Value\s{4}  Value\s{4} /);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│   required │   optional │'
+    );
+    expect(renderedBody).toEqual([
+      '│            │            │',
+      '│            │            │',
+      '│      Value │      Value │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -232,15 +236,15 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       { id: 42, amount: 0.0001, percentage: 0 },
     ]);
 
-    const renderedBody = getTableBody(p);
-
-    // ID should be padded to minLen
-    expect(renderedBody[0]).toMatch(/\s+1\s+/);
-    expect(renderedBody[1]).toMatch(/\s+999\s+/);
-
-    // Amount should wrap if longer than maxLen
-    expect(renderedBody[0]).toMatch(/ 12345678/);
-    expect(renderedBody[1]).toMatch(/ 90.123\s+/);
+    const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
+    expect(renderedHeader).toEqual(
+      '│    id │         amount │ percentage │'
+    );
+    expect(renderedBody).toEqual([
+      '│     1 │ 1234567890.123 │      45.67 │',
+      '│   999 │             42 │        100 │',
+      '│    42 │         0.0001 │          0 │',
+    ]);
 
     expect(p.render()).toMatchSnapshot();
   });
