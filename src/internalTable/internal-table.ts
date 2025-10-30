@@ -7,7 +7,7 @@ import {
   RowFilterFunction,
   RowSortFunction,
   Valuetransform,
-  GroupedColumnsHeaderOrPlaceholder,
+  GroupedColumnsHeader,
 } from '../models/external-table';
 import { Column, TableStyleDetails } from '../models/internal-table';
 import { ColorMap, DEFAULT_COLOR_MAP } from '../utils/colored-console-line';
@@ -38,7 +38,7 @@ class TableInternal {
 
   rows: Row[];
 
-  groupedColumnsHeaders: GroupedColumnsHeaderOrPlaceholder[];
+  groupedColumnsHeaders: GroupedColumnsHeader[];
 
   filterFunction: RowFilterFunction;
 

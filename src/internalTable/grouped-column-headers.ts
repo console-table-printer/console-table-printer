@@ -1,9 +1,21 @@
 import { Dictionary } from '../models/common';
-import { GroupedColumnsHeaderOrPlaceholder } from '../models/external-table';
+import { GroupedColumnsHeader } from '../models/external-table';
+import { Column } from '../models/internal-table';
 import TableInternal from './internal-table';
 import { renderTableInternal } from './internal-table-printer';
 
 type TableTransformer = (input: string[]) => string[];
+
+interface Placeholder {
+  kind: 'PLACEHOLDER';
+  width: number;
+}
+
+interface Group extends GroupedColumnsHeader {
+  width: number;
+}
+
+type GroupOrPlaceholder = Group | Placeholder;
 
 export const enrichWithGroupedColumnsHeaders = (
   table: TableInternal
@@ -17,13 +29,6 @@ export const enrichWithGroupedColumnsHeaders = (
   let wasPreviousGroupAPlaceHolder: boolean | undefined = undefined;
 
   const groups = normalizeGroupedColumnsHeaders(table);
-
-  if (groups.length === 1 && 'kind' in groups[0]) {
-    // Only placeholders. Let's return early.
-    return (input) => {
-      return input;
-    };
-  }
 
   // Depending on the grouped columns headers configuration and the existing columns,
   // create a map of where to fix the top border of the existing table.
@@ -97,66 +102,170 @@ export const enrichWithGroupedColumnsHeaders = (
 
 const normalizeGroupedColumnsHeaders = (
   table: TableInternal
-): GroupedColumnsHeaderOrPlaceholder[] => {
-  // deep copy to avoid mutating the original input
-  const normalized = table.groupedColumnsHeaders.map((gch) => ({ ...gch }));
+): GroupOrPlaceholder[] => {
+  validateGroups(table);
 
-  addATrailingPlaceholderIfNeeded(normalized, table.columns.length);
-
-  mergeConsecutivePlaceholders(normalized);
-
-  const totalWidth = evaluateTotalWidth(normalized);
-
-  if (totalWidth > table.columns.length) {
-    throw new Error(
-      `Grouped columns width (${totalWidth}) exceeds total columns width (${table.columns.length})`
-    );
-  }
+  const normalized: GroupOrPlaceholder[] = materializePlaceholders(table);
 
   return normalized;
 };
 
-const addATrailingPlaceholderIfNeeded = (
-  groups: GroupedColumnsHeaderOrPlaceholder[],
-  numberOfColumns: number
-): void => {
-  const totalGroupHeadersWidth = evaluateTotalWidth(groups);
-
-  if (numberOfColumns <= totalGroupHeadersWidth) {
-    return;
-  }
-
-  groups.push({
-    kind: 'PLACEHOLDER',
-    width: numberOfColumns - totalGroupHeadersWidth,
-  });
+const validateGroups = (table: TableInternal): void => {
+  ensureNoEmptyChildNames(table);
+  ensureNoDuplicateEntryInChildNames(table);
+  ensureNoSharedChildNameBetweenGroups(table);
+  ensureAllChildNamesMatchColumnNames(table);
+  ensureChildNamesAreConsecutiveInTableColumns(table);
 };
 
-const mergeConsecutivePlaceholders = (
-  groups: GroupedColumnsHeaderOrPlaceholder[]
-): void => {
-  if (groups.length < 2) {
-    return;
-  }
-
-  let pos = 0;
-  while (pos < groups.length - 1) {
-    const current = groups[pos];
-    const next = groups[pos + 1];
-
-    if ('kind' in current && 'kind' in next) {
-      current.width += next.width;
-      groups.splice(pos + 1, 1);
+const ensureNoEmptyChildNames = (table: TableInternal): void => {
+  for (const group of table.groupedColumnsHeaders) {
+    if (group.childNames.length > 0) {
       continue;
     }
 
-    pos += 1;
+    throw new Error(
+      `Grouped columns header '${group.name}' must have at least one child name`
+    );
   }
+};
+
+const ensureNoDuplicateEntryInChildNames = (table: TableInternal): void => {
+  for (const group of table.groupedColumnsHeaders) {
+    const seenChildNames: Set<string> = new Set();
+
+    for (const childName of group.childNames) {
+      if (!seenChildNames.has(childName)) {
+        seenChildNames.add(childName);
+        continue;
+      }
+
+      throw new Error(
+        `Grouped columns header '${group.name}' has duplicate child name '${childName}'`
+      );
+    }
+  }
+};
+
+const ensureNoSharedChildNameBetweenGroups = (table: TableInternal): void => {
+  const seenChildNames: Set<string> = new Set();
+  for (const group of table.groupedColumnsHeaders) {
+    for (const childName of group.childNames) {
+      if (!seenChildNames.has(childName)) {
+        seenChildNames.add(childName);
+        continue;
+      }
+
+      throw new Error(
+        `Grouped columns header '${group.name}' has a child name '${childName}' that is already used in another group`
+      );
+    }
+  }
+};
+
+const ensureAllChildNamesMatchColumnNames = (table: TableInternal): void => {
+  const columnNamesSet: Set<string> = new Set(
+    table.columns.map((col) => col.name)
+  );
+
+  for (const group of table.groupedColumnsHeaders) {
+    for (const childName of group.childNames) {
+      if (columnNamesSet.has(childName)) {
+        continue;
+      }
+
+      throw new Error(
+        `Grouped columns header '${group.name}' has a child name '${childName}' that does not match any existing column name`
+      );
+    }
+  }
+};
+
+const ensureChildNamesAreConsecutiveInTableColumns = (
+  table: TableInternal
+): void => {
+  const columns = table.columns;
+
+  for (const group of table.groupedColumnsHeaders) {
+    if (consecutiveColumnsIrrespectiveOfOrder(group, columns)) {
+      continue;
+    }
+
+    throw new Error(
+      `Grouped columns header '${group.name}' reference columns that are non-consecutive in the table`
+    );
+  }
+};
+
+const consecutiveColumnsIrrespectiveOfOrder = (
+  group: GroupedColumnsHeader,
+  columns: Column[]
+): boolean => {
+  const childIndices = group.childNames
+    .map((childName) => columns.filter((col) => col.name === childName)[0])
+    .map((col) => columns.indexOf(col));
+
+  childIndices.sort((a, b) => a - b);
+
+  for (let i = 1; i < childIndices.length; i++) {
+    if (childIndices[i] !== childIndices[i - 1] + 1) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const materializePlaceholders = (
+  table: TableInternal
+): GroupOrPlaceholder[] => {
+  const groups: GroupOrPlaceholder[] = [];
+
+  for (const column of table.columns) {
+    const previousNormalizedGroup =
+      groups.length > 0 ? groups[groups.length - 1] : undefined;
+
+    if (
+      previousNormalizedGroup !== undefined &&
+      !('kind' in previousNormalizedGroup) &&
+      previousNormalizedGroup.childNames.includes(column.name)
+    ) {
+      continue;
+    }
+
+    const group = table.groupedColumnsHeaders.find((gch) =>
+      gch.childNames.includes(column.name)
+    );
+
+    if (group === undefined) {
+      if (
+        previousNormalizedGroup != undefined &&
+        'kind' in previousNormalizedGroup
+      ) {
+        previousNormalizedGroup.width += 1;
+        continue;
+      }
+
+      groups.push({
+        kind: 'PLACEHOLDER',
+        width: 1,
+      });
+
+      continue;
+    }
+
+    groups.push({
+      ...group,
+      width: group.childNames.length,
+    });
+  }
+
+  return groups;
 };
 
 const AddHeaderTo = (
   gchTable: TableInternal,
-  group: GroupedColumnsHeaderOrPlaceholder,
+  group: GroupOrPlaceholder,
   columnMaxLen: number
 ) => {
   const colName = 'kind' in group ? '' : group.name;
@@ -177,10 +286,6 @@ const AddHeaderTo = (
   const colOptions: Dictionary = {};
   colOptions[colName] = ' '.repeat(columnMaxLen);
   gchTable.addRow(colOptions);
-};
-
-const evaluateTotalWidth = (groups: GroupedColumnsHeaderOrPlaceholder[]) => {
-  return groups.reduce((a, b) => a + b.width, 0);
 };
 
 const renderGroupedColumnsHeaders = (

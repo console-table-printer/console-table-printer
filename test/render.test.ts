@@ -1,5 +1,4 @@
 import { Table } from '../index';
-import { type GroupedColumnsHeaderOrPlaceholder } from '../src/models/external-table';
 import { getTableBody, getTableHeader } from './testUtils/getRawData';
 
 describe('Table Rendering Tests', () => {
@@ -155,10 +154,8 @@ describe('Table Rendering Tests', () => {
   it('should render grouped columns headers', () => {
     const table = new Table({
       groupedColumnsHeaders: [
-        { kind: 'PLACEHOLDER', width: 2 },
-        { name: 'G1', width: 2, alignment: 'left' },
-        { kind: 'PLACEHOLDER', width: 1 },
-        { name: 'VERY LONG GROUP NAME', width: 3 },
+        { name: 'G1', childNames: ['D', 'C'], alignment: 'left' },
+        { name: 'VERY LONG GROUP NAME', childNames: ['F', 'G', 'H'] },
       ],
     });
 

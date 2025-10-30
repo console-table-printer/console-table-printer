@@ -1,11 +1,9 @@
 import { Table } from '../../../index';
-import { GroupedColumnsHeaderOrPlaceholder } from '../../../src/models/external-table';
+import { GroupedColumnsHeader } from '../../../src/models/external-table';
 import { getTableBody, getTableHeader } from '../../testUtils/getRawData';
 
 describe('Grouped columns headers', () => {
-  const buildTestTable = (
-    groupedHeaders?: GroupedColumnsHeaderOrPlaceholder[]
-  ): Table => {
+  const buildTestTable = (groupedHeaders?: GroupedColumnsHeader[]): Table => {
     const table = new Table({
       groupedColumnsHeaders: groupedHeaders,
     });
@@ -38,7 +36,9 @@ describe('Grouped columns headers', () => {
   };
 
   it('should render single group', () => {
-    const p = buildTestTable([{ name: 'G1', width: 9 }]);
+    const p = buildTestTable([
+      { name: 'G1', childNames: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'] },
+    ]);
 
     p.printTable();
     expect(p.render()).toMatchSnapshot();
@@ -46,9 +46,9 @@ describe('Grouped columns headers', () => {
 
   it('should render consecutive groups', () => {
     const p = buildTestTable([
-      { name: 'G1', width: 2 },
-      { name: 'G2', width: 2 },
-      { name: 'G3', width: 5 },
+      { name: 'G1', childNames: ['A', 'B'] },
+      { name: 'G2', childNames: ['C', 'D'] },
+      { name: 'G3', childNames: ['E', 'F', 'G', 'H', 'I'] },
     ]);
 
     p.printTable();
@@ -57,10 +57,9 @@ describe('Grouped columns headers', () => {
 
   it('should render consecutive groups with a placeholder at the start', () => {
     const p = buildTestTable([
-      { kind: 'PLACEHOLDER', width: 1 },
-      { name: 'G1', width: 2 },
-      { name: 'G2', width: 2 },
-      { name: 'G3', width: 4 },
+      { name: 'G1', childNames: ['B', 'C'] },
+      { name: 'G2', childNames: ['D', 'E'] },
+      { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
     ]);
 
     p.printTable();
@@ -69,10 +68,9 @@ describe('Grouped columns headers', () => {
 
   it('should render consecutive groups with a placeholder at the end', () => {
     const p = buildTestTable([
-      { name: 'G1', width: 2 },
-      { name: 'G2', width: 2 },
-      { name: 'G3', width: 4 },
-      { kind: 'PLACEHOLDER', width: 1 },
+      { name: 'G1', childNames: ['A', 'B'] },
+      { name: 'G2', childNames: ['C', 'D'] },
+      { name: 'G3', childNames: ['E', 'F', 'G', 'H'] },
     ]);
 
     p.printTable();
@@ -81,10 +79,9 @@ describe('Grouped columns headers', () => {
 
   it('should render consecutive groups with a placeholder in between', () => {
     const p = buildTestTable([
-      { name: 'G1', width: 2 },
-      { name: 'G2', width: 2 },
-      { kind: 'PLACEHOLDER', width: 1 },
-      { name: 'G3', width: 4 },
+      { name: 'G1', childNames: ['A', 'B'] },
+      { name: 'G2', childNames: ['C', 'D'] },
+      { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
     ]);
 
     p.printTable();
@@ -93,32 +90,26 @@ describe('Grouped columns headers', () => {
 
   it('should render consecutive groups with placeholders', () => {
     const p = buildTestTable([
-      { kind: 'PLACEHOLDER', width: 1 },
-      { name: 'G1', width: 2 },
-      { kind: 'PLACEHOLDER', width: 1 },
-      { name: 'G2', width: 2 },
-      { name: 'G3', width: 2 },
+      { name: 'G1', childNames: ['B', 'C'] },
+      { name: 'G2', childNames: ['E', 'F'] },
+      { name: 'G3', childNames: ['G', 'H'] },
     ]);
 
     p.printTable();
 
     // ensure we didn't mutate the original input when normalizing
-    expect(p.table.groupedColumnsHeaders.length).toBe(5);
+    expect(p.table.groupedColumnsHeaders.length).toBe(3);
 
     expect(p.render()).toMatchSnapshot();
   });
 
   it('should render placeholders spanning multiple columns', () => {
-    const p = buildTestTable([
-      { kind: 'PLACEHOLDER', width: 2 },
-      { kind: 'PLACEHOLDER', width: 3 },
-      { name: 'G1', width: 2 },
-    ]);
+    const p = buildTestTable([{ name: 'G1', childNames: ['F', 'G'] }]);
 
     p.printTable();
 
     // ensure we don't mutate the original input when normalizing
-    expect(p.table.groupedColumnsHeaders.length).toBe(3);
+    expect(p.table.groupedColumnsHeaders.length).toBe(1);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -149,61 +140,60 @@ describe('Grouped columns headers', () => {
     // └────┴────┴────┴─────────┴────┴────┴────┴─────────┴────────────┘
 
     const p = buildTestTable([
-      { kind: 'PLACEHOLDER', width: 7 },
-      { name: 'VERY LONG GROUP NAME', width: 2 },
+      { name: 'VERY LONG GROUP NAME', childNames: ['H', 'I'] },
     ]);
 
     p.printTable();
     expect(p.render()).toMatchSnapshot();
   });
 
-  it('should ignore headers only made of placeholders', () => {
-    const p = buildTestTable([
-      { kind: 'PLACEHOLDER', width: 2 },
-      { kind: 'PLACEHOLDER', width: 3 },
-    ]);
-
-    p.printTable();
-
-    // ensure we didn't mutate the original input when normalizing
-    expect(p.table.groupedColumnsHeaders.length).toBe(2);
-
-    expect(p.render()).toMatchSnapshot();
-  });
-
-  describe('should throw when total table width is narrower than total width of group headers', () => {
-    it('ending with a group header', () => {
+  describe('should throw when grouped columns headers are misconfigured', () => {
+    it('having a group with empty child names', () => {
       const p = buildTestTable([
-        { kind: 'PLACEHOLDER', width: 3 },
-        { name: 'G1', width: 2 },
-        { kind: 'PLACEHOLDER', width: 1 },
-        { name: 'G2', width: 2 },
-        { name: 'G3', width: 2 },
+        { name: 'G1', childNames: ['A', 'B', 'C'] },
+        { name: 'G2', childNames: [] },
+        { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
       ]);
 
       expect(() => p.render()).toThrowErrorMatchingSnapshot();
     });
 
-    it('ending with a placeholder', () => {
+    it('having a group with duplicate child names', () => {
       const p = buildTestTable([
-        { kind: 'PLACEHOLDER', width: 3 },
-        { name: 'G1', width: 2 },
-        { kind: 'PLACEHOLDER', width: 1 },
-        { name: 'G2', width: 2 },
-        { kind: 'PLACEHOLDER', width: 2 },
+        { name: 'G1', childNames: ['A', 'B', 'C'] },
+        { name: 'G2', childNames: ['D', 'E', 'D'] },
+        { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
       ]);
 
       expect(() => p.render()).toThrowErrorMatchingSnapshot();
     });
 
-    it('being one too large group header', () => {
-      const p = buildTestTable([{ name: 'G1', width: 99 }]);
+    it('having multiple group referencing the same child name', () => {
+      const p = buildTestTable([
+        { name: 'G1', childNames: ['A', 'B', 'C'] },
+        { name: 'G2', childNames: ['D', 'A'] },
+        { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
+      ]);
 
       expect(() => p.render()).toThrowErrorMatchingSnapshot();
     });
 
-    it('being one too large placeholder', () => {
-      const p = buildTestTable([{ kind: 'PLACEHOLDER', width: 99 }]);
+    it('having a group referencing a non existing column', () => {
+      const p = buildTestTable([
+        { name: 'G1', childNames: ['A', 'B', 'C'] },
+        { name: 'G2', childNames: ['D', 'NOPE'] },
+        { name: 'G3', childNames: ['F', 'G', 'H', 'I'] },
+      ]);
+
+      expect(() => p.render()).toThrowErrorMatchingSnapshot();
+    });
+
+    it('having a group referencing non consecutive columns', () => {
+      const p = buildTestTable([
+        { name: 'G1', childNames: ['C', 'A', 'B'] },
+        { name: 'G2', childNames: ['D', 'I'] },
+        { name: 'G3', childNames: ['G', 'F', 'H'] },
+      ]);
 
       expect(() => p.render()).toThrowErrorMatchingSnapshot();
     });
