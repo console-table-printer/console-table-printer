@@ -37,7 +37,10 @@ describe('Column Max/Min Length Tests', () => {
 
     p.addRows([
       { constrained: 'Short', normal: 'Normal column' },
-      { constrained: 'This is exactly twenty chars plus more', normal: 'Another' },
+      {
+        constrained: 'This is exactly twenty chars plus more',
+        normal: 'Another',
+      },
       { constrained: 'Medium length', normal: 'Row 3' },
     ]);
 
@@ -55,7 +58,7 @@ describe('Column Max/Min Length Tests', () => {
       {
         left: 'This will be wrapped to multiple lines',
         center: 'Center aligned text wrapping',
-        right: 'Right aligned text wrapping'
+        right: 'Right aligned text wrapping',
       },
       { left: 'Short', center: 'Mid', right: 'End' },
     ]);
@@ -125,8 +128,11 @@ describe('Column Max/Min Length Tests', () => {
   });
 
   it('should handle numeric values with maxLen and minLen', () => {
-    const p = new Table()
-      .addColumn({ name: 'numbers', minLen: 10, maxLen: 15 });
+    const p = new Table().addColumn({
+      name: 'numbers',
+      minLen: 10,
+      maxLen: 15,
+    });
 
     p.addRows([
       { numbers: 42 },
@@ -161,7 +167,10 @@ describe('Column Max/Min Length Tests', () => {
 
     p.addRows([
       { colored: 'Hi', normal: 'Short colored text' },
-      { colored: 'This is a very long text that should wrap', normal: 'Long colored text' },
+      {
+        colored: 'This is a very long text that should wrap',
+        normal: 'Long colored text',
+      },
     ]);
 
     p.printTable();
@@ -178,7 +187,7 @@ describe('Column Max/Min Length Tests', () => {
       defaultColumnOptions: {
         maxLen: 12,
         minLen: 8,
-      }
+      },
     });
 
     p.addRows([

@@ -57,9 +57,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│ padded          │      normal │'
-    );
+    expect(renderedHeader).toEqual('│ padded          │      normal │');
     expect(renderedBody).toEqual([
       '│ Short           │ Normal text │',
       '│ X               │ Another row │',
@@ -71,10 +69,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
   it('should handle text wrapping with maxLen on multiple rows', () => {
     const p = new Table({
       shouldDisableColors: true,
-      columns: [
-        { name: 'wrapped', maxLen: 8 },
-        { name: 'count' },
-      ],
+      columns: [{ name: 'wrapped', maxLen: 8 }, { name: 'count' }],
     });
 
     p.addRows([
@@ -84,9 +79,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│                    wrapped │ count │'
-    );
+    expect(renderedHeader).toEqual('│                    wrapped │ count │');
     expect(renderedBody).toEqual([
       '│ abcdefghijklmnopqrstuvwxyz │     1 │',
       '│                      Short │     2 │',
@@ -108,13 +101,14 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     p.addRows([
       { constrained: 'Hi', value: 'Too short' },
       { constrained: 'Perfect size', value: 'Just right' },
-      { constrained: 'This text is definitely way too long for the column', value: 'Too long' },
+      {
+        constrained: 'This text is definitely way too long for the column',
+        value: 'Too long',
+      },
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│     constrained │      value │'
-    );
+    expect(renderedHeader).toEqual('│     constrained │      value │');
     expect(renderedBody).toEqual([
       '│              Hi │  Too short │',
       '│    Perfect size │ Just right │',
@@ -146,9 +140,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│ left       │   center   │      right │'
-    );
+    expect(renderedHeader).toEqual('│ left       │   center   │      right │');
     expect(renderedBody).toEqual([
       '│ Left       │   Center   │      Right │',
       '│ aligned    │  aligned   │    aligned │',
@@ -170,7 +162,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
       defaultColumnOptions: {
         maxLen: 10,
         minLen: 8,
-      }
+      },
     });
 
     p.addRows([
@@ -179,9 +171,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│       col1 │       col2 │     col3 │'
-    );
+    expect(renderedHeader).toEqual('│       col1 │       col2 │     col3 │');
     expect(renderedBody).toEqual([
       '│         Hi │      Hello │  Testing │',
       '│    This is │         OK │        X │',
@@ -208,9 +198,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│   required │   optional │'
-    );
+    expect(renderedHeader).toEqual('│   required │   optional │');
     expect(renderedBody).toEqual([
       '│            │            │',
       '│            │            │',
@@ -237,9 +225,7 @@ describe('Column Max/Min Length Tests: Rendering', () => {
     ]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual(
-      '│    id │         amount │ percentage │'
-    );
+    expect(renderedHeader).toEqual('│    id │         amount │ percentage │');
     expect(renderedBody).toEqual([
       '│     1 │ 1234567890.123 │      45.67 │',
       '│   999 │             42 │        100 │',
