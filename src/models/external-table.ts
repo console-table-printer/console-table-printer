@@ -85,6 +85,8 @@ export interface ComplexOptions {
   title?: string;
   /** Array of column configurations */
   columns?: ColumnOptionsRaw[];
+  /** Array of grouped columns header configurations */
+  groupedColumnsHeaders?: GroupedColumnsHeader[];
   /** Initial data rows for the table */
   rows?: Dictionary[];
   /** Function to sort rows before display */
@@ -107,4 +109,18 @@ export interface ComplexOptions {
   charLength?: CharLengthDict;
   /** Default options applied to all columns unless overridden */
   defaultColumnOptions?: DefaultColumnOptions;
+}
+
+/**
+ * Top level header that spans multiple columns
+ */
+export interface GroupedColumnsHeader {
+  /** Display name for the grouped header */
+  name: string;
+
+  /** Names of child columns that this header spans */
+  childNames: string[];
+
+  /** Text alignment for header name ("center", by default) */
+  alignment?: ALIGNMENT;
 }

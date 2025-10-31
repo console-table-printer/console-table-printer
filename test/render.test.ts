@@ -150,4 +150,41 @@ describe('Table Rendering Tests', () => {
       '│  2 │ Jane │ Inactive │',
     ]);
   });
+
+  it('should render grouped columns headers', () => {
+    const table = new Table({
+      groupedColumnsHeaders: [
+        { name: 'G1', childNames: ['D', 'C'], alignment: 'left' },
+        { name: 'VERY LONG GROUP NAME', childNames: ['F', 'G', 'H'] },
+      ],
+    });
+
+    table.addRow({
+      A: `A1`,
+      B: `B1`,
+      C: `C1`,
+      D: `D1`,
+      E: `E1`,
+      F: `F1`,
+      G: `G1`,
+      H: `H1`,
+      I: `I 00001`,
+    });
+
+    table.addRow({
+      A: `A2`,
+      B: `B2`,
+      C: `C2`,
+      D: `D 00002`,
+      E: `E2`,
+      F: `F2`,
+      G: `G2`,
+      H: `H2`,
+      I: `I2`,
+    });
+
+    const rendered = table.render();
+    expect(rendered).toMatchSnapshot();
+    table.printTable();
+  });
 });

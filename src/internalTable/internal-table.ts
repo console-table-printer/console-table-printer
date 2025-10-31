@@ -7,6 +7,7 @@ import {
   RowFilterFunction,
   RowSortFunction,
   Valuetransform,
+  GroupedColumnsHeader,
 } from '../models/external-table';
 import { Column, TableStyleDetails } from '../models/internal-table';
 import { ColorMap, DEFAULT_COLOR_MAP } from '../utils/colored-console-line';
@@ -36,6 +37,8 @@ class TableInternal {
   columns: Column[];
 
   rows: Row[];
+
+  groupedColumnsHeaders: GroupedColumnsHeader[];
 
   filterFunction: RowFilterFunction;
 
@@ -94,11 +97,16 @@ class TableInternal {
     if (options.rows !== undefined) {
       this.addRows(options.rows);
     }
+
+    if (options.groupedColumnsHeaders) {
+      this.groupedColumnsHeaders = options.groupedColumnsHeaders;
+    }
   }
 
   constructor(options?: ComplexOptions | string[]) {
     // default construction
     this.rows = [];
+    this.groupedColumnsHeaders = [];
     this.columns = [];
     this.title = undefined;
     this.tableStyle = DEFAULT_TABLE_STYLE;
