@@ -176,6 +176,44 @@ describe('renderTable', () => {
     expect(secondRender).toContain('6');
     expect(secondRender).toContain('10');
   });
+
+  it('should render table with bigint values', () => {
+    const bigValue = (globalThis as any).BigInt(
+      '9007199254740993123456789'
+    ) as bigint;
+    const table = new TableInternal({
+      columns: [{ name: 'id' }, { name: 'value' }],
+    });
+
+    table.addRow({ id: 1, value: bigValue });
+
+    const rendered = renderTable(table);
+    expect(rendered).toContain('9007199254740993123456789');
+  });
+
+  it('should render transformed bigint values without modifying the original data', () => {
+    const bigValue = (globalThis as any).BigInt(
+      '9007199254740993123456789'
+    ) as bigint;
+    const table = new TableInternal({
+      columns: [
+        {
+          name: 'value',
+          transform: (data: CellValue): CellValue =>
+            typeof data === 'bigint' ? `bigint:${data.toString()}` : data,
+        },
+      ],
+    });
+
+    table.addRow({ value: bigValue });
+
+    const firstRender = renderTable(table);
+    const secondRender = renderTable(table);
+
+    expect(firstRender).toEqual(secondRender);
+    expect(secondRender).toContain('bigint:9007199254740993123456789');
+    expect(table.rows[0].text.value).toBe(bigValue);
+  });
 });
 
 // Test renderSimpleTable function
