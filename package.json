@@ -1,7 +1,10 @@
 {
   "name": "console-table-printer",
   "version": "0.0.0",
-  "repository": "github:console-table-printer/console-table-printer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/console-table-printer/console-table-printer.git"
+  },
   "description": "Printing pretty tables on console log",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
