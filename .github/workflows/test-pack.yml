@@ -285,7 +285,7 @@ jobs:
               console.log(result);
             " > test.ts
             
-            tsc --noEmit test.ts
+            tsc --ignoreConfig --noEmit test.ts
             echo "✅ TypeScript types working correctly"
           else
             echo "⚠️ TypeScript not available, skipping type check"
