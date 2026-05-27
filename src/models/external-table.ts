@@ -6,8 +6,8 @@ export { ALIGNMENT, COLOR };
 
 export type TableStyleDetails = Partial<InternalTableStyleDetails>;
 
-// Type for table cell values - can be string, number, or undefined
-export type CellValue = string | number | boolean | undefined | null;
+// Type for table cell values - can be string, number, bigint, or empty values
+export type CellValue = string | number | bigint | boolean | undefined | null;
 
 export type Valuetransform = (cellValue: CellValue) => CellValue;
 

@@ -102,7 +102,10 @@ const renderWidthLimitedLines = (
 };
 
 const transformRow = (row: Row, columns: Column[]): Row => {
-  const transformedRow = JSON.parse(JSON.stringify(row));
+  const transformedRow: Row = {
+    ...row,
+    text: { ...row.text },
+  };
   const transforms: Dictionary = {};
   columns
     .filter((c) => {

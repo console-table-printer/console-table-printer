@@ -29,6 +29,11 @@ describe('table-helpers', () => {
     it('should return string as is', () => {
       expect(cellText('test')).toBe('test');
     });
+
+    it('should convert bigint to string', () => {
+      const value = (globalThis as any).BigInt('9007199254740993') as bigint;
+      expect(cellText(value)).toBe('9007199254740993');
+    });
   });
 
   describe('convertRawRowOptionsToStandard', () => {
