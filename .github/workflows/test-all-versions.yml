@@ -29,10 +29,10 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Use Node.js 24.x
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24.x
           registry-url: 'https://registry.npmjs.org'
@@ -50,7 +50,7 @@ jobs:
         run: npm pack
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: package-dist-${{ matrix.os }}
           path: |
@@ -68,15 +68,15 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Download build artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: package-dist-${{ matrix.os }}
 
