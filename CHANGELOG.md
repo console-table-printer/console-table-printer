@@ -1,3 +1,10 @@
+## [2.15.2](https://github.com/console-table-printer/console-table-printer/compare/v2.15.1...v2.15.2) (2026-05-27)
+
+
+### Bug Fixes
+
+* trigger deploy ([364d5f9](https://github.com/console-table-printer/console-table-printer/commit/364d5f9b2e82db309da7a82030456c882285eac0))
+
 ## [2.15.1](https://github.com/console-table-printer/console-table-printer/compare/v2.15.0...v2.15.1) (2026-05-27)
 
 
