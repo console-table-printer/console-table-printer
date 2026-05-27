@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/console-table-printer/console-table-printer/compare/v2.15.0...v2.15.1) (2026-05-27)
+
+
+### Bug Fixes
+
+* BigInt fix ([#578](https://github.com/console-table-printer/console-table-printer/issues/578)) ([86981ab](https://github.com/console-table-printer/console-table-printer/commit/86981ab51e5b89f8cfadfc1378f6dc2d44fce30f))
+
 # [2.15.0](https://github.com/console-table-printer/console-table-printer/compare/v2.14.6...v2.15.0) (2025-10-20)
 
 
