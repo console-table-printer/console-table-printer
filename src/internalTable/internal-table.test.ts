@@ -377,6 +377,20 @@ describe('TableInternal Additions', () => {
     expect(table.rows[1].separator).toBe(true);
   });
 
+  it('should preserve an explicit false row separator option', () => {
+    const table = new TableInternal({
+      columns: [{ name: 'name' }],
+      rowSeparator: true,
+    });
+
+    table.addRow(
+      { name: 'Alice' },
+      { color: 'blue' as const, separator: false }
+    );
+
+    expect(table.rows[0].separator).toBe(false);
+  });
+
   it('should add rows without options', () => {
     const table = new TableInternal(['id', 'value']);
     const rowsData = [

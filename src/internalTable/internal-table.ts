@@ -66,28 +66,28 @@ class TableInternal {
   }
 
   initDetailed(options: ComplexOptions) {
-    this.title = options?.title || this.title;
+    this.title = options.title || this.title;
     this.tableStyle = {
       ...this.tableStyle,
-      ...options?.style,
+      ...options.style,
     };
-    this.sortFunction = options?.sort || this.sortFunction;
-    this.filterFunction = options?.filter || this.filterFunction;
-    this.enabledColumns = options?.enabledColumns || this.enabledColumns;
-    this.disabledColumns = options?.disabledColumns || this.disabledColumns;
-    this.computedColumns = options?.computedColumns || this.computedColumns;
+    this.sortFunction = options.sort || this.sortFunction;
+    this.filterFunction = options.filter || this.filterFunction;
+    this.enabledColumns = options.enabledColumns || this.enabledColumns;
+    this.disabledColumns = options.disabledColumns || this.disabledColumns;
+    this.computedColumns = options.computedColumns || this.computedColumns;
     this.columns =
-      options?.columns?.map((column) =>
-        rawColumnToInternalColumn(column, options?.defaultColumnOptions)
+      options.columns?.map((column) =>
+        rawColumnToInternalColumn(column, options.defaultColumnOptions)
       ) || this.columns;
-    this.rowSeparator = options?.rowSeparator || this.rowSeparator;
-    this.charLength = options?.charLength || this.charLength;
+    this.rowSeparator = options.rowSeparator || this.rowSeparator;
+    this.charLength = options.charLength || this.charLength;
     this.defaultColumnOptions =
-      options?.defaultColumnOptions || this.defaultColumnOptions;
+      options.defaultColumnOptions || this.defaultColumnOptions;
 
-    if (options?.shouldDisableColors) {
+    if (options.shouldDisableColors) {
       this.colorMap = {};
-    } else if (options?.colorMap) {
+    } else if (options.colorMap) {
       this.colorMap = { ...this.colorMap, ...options.colorMap };
     }
 
@@ -115,7 +115,7 @@ class TableInternal {
 
     if (options instanceof Array) {
       this.initSimple(options);
-    } else if (typeof options === 'object') {
+    } else if (typeof options === 'object' && options !== null) {
       this.initDetailed(options);
     }
   }
@@ -159,9 +159,7 @@ class TableInternal {
       createRow(
         options?.color || DEFAULT_ROW_FONT_COLOR,
         text,
-        options?.separator !== undefined
-          ? options?.separator
-          : this.rowSeparator
+        options?.separator !== undefined ? options.separator : this.rowSeparator
       )
     );
   }

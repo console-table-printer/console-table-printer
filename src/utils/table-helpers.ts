@@ -101,7 +101,7 @@ export const findLenOfColumn = (
   const columnId = column.name;
   const columnTitle = column.title;
   const datatransform = column.transform;
-  let length = max(0, column?.minLen || 0);
+  let length = max(0, column.minLen || 0);
 
   if (column.maxLen) {
     // if customer input is mentioned a max width, lets see if all other can fit here
