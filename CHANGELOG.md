@@ -1,3 +1,10 @@
+## [2.15.3](https://github.com/console-table-printer/console-table-printer/compare/v2.15.2...v2.15.3) (2026-05-28)
+
+
+### Bug Fixes
+
+* Technical Updates simplify release script and update code cov ([#580](https://github.com/console-table-printer/console-table-printer/issues/580)) ([c71133a](https://github.com/console-table-printer/console-table-printer/commit/c71133a1c6dd402a419d0ef38aa9df9afa54e812))
+
 ## [2.15.2](https://github.com/console-table-printer/console-table-printer/compare/v2.15.1...v2.15.2) (2026-05-27)
 
 
