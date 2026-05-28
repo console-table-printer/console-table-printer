@@ -5,6 +5,7 @@ import {
 } from './internal-table-printer';
 import TableInternal from './internal-table';
 import { CellValue } from '../models/external-table';
+import { DEFAULT_COLUMN_LEN } from '../utils/table-constants';
 
 // Test renderTable function
 describe('renderTable', () => {
@@ -213,6 +214,39 @@ describe('renderTable', () => {
     expect(firstRender).toEqual(secondRender);
     expect(secondRender).toContain('bigint:9007199254740993123456789');
     expect(table.rows[0].text.value).toBe(bigValue);
+  });
+
+  it('should use default render width for zero-length columns', () => {
+    const table = new TableInternal({
+      title: 'Fallback Width',
+      columns: [{ name: '', title: '' }],
+      rowSeparator: true,
+      shouldDisableColors: true,
+    });
+
+    table.addRow({ '': '' });
+    table.addRow({ '': '' });
+
+    const rendered = renderTable(table);
+    const cellBorderWidth = DEFAULT_COLUMN_LEN + 2;
+
+    expect(rendered).toContain('Fallback Width');
+    expect(rendered).toContain(`┌${'─'.repeat(cellBorderWidth)}┐`);
+    expect(rendered).toContain(`├${'─'.repeat(cellBorderWidth)}┤`);
+    expect(rendered).toContain(`└${'─'.repeat(cellBorderWidth)}┘`);
+  });
+
+  it('should use default row alignment for internal columns without alignment', () => {
+    const table = new TableInternal(['name']);
+    table.colorMap = {};
+    table.columns[0].alignment = undefined as any;
+    table.addRow({ name: 'A' });
+
+    const rendered = renderTable(table);
+    const rowLine = rendered.split('\n').find((line) => line.includes('A'));
+
+    expect(rowLine).toBeDefined();
+    expect(rowLine).toContain('    A ');
   });
 });
 
