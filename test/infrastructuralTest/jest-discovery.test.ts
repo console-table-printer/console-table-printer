@@ -48,6 +48,10 @@ describe('Jest Test Discovery', () => {
     'test/features/columnColor/render.test.ts',
     'test/features/columnColor/verifyOutput.test.ts',
 
+    'test/features/clearRows/basic.test.ts',
+    'test/features/clearRows/render.test.ts',
+    'test/features/clearRows/verifyOutput.test.ts',
+
     'test/features/computedColumns/computedColumns.test.ts',
     'test/features/computedColumns/render.test.ts',
     'test/features/computedColumns/verifyOutput.test.ts',

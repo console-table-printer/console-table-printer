@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Testing clearRows should allow clearing rows in a chain way 1`] = `
+"┌────┬────────┐
+│[37m [0m[01mid[0m │[37m [0m[01mstatus[0m │
+├────┼────────┤
+│[37m [0m[37m 3[0m │[37m [0m[37m  Done[0m │
+└────┴────────┘"
+`;
+
+exports[`Testing clearRows should clear rows added during table creation 1`] = `
+"┌────────┬───────┐
+│[37m [0m[01m  task[0m │[37m [0m[01mstate[0m │
+├────────┼───────┤
+│[37m [0m[37mdeploy[0m │[37m [0m[37m done[0m │
+└────────┴───────┘"
+`;
