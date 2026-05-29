@@ -403,6 +403,19 @@ describe('TableInternal Additions', () => {
     expect(table.rows[0].text.id).toBe(1);
     expect(table.rows[1].text.value).toBe('second');
   });
+
+  it('should clear rows while preserving columns', () => {
+    const table = new TableInternal(['id', 'value']);
+    table.addRows([
+      { id: 1, value: 'first' },
+      { id: 2, value: 'second' },
+    ]);
+
+    table.clearRows();
+
+    expect(table.rows).toEqual([]);
+    expect(table.columns.map((column) => column.name)).toEqual(['id', 'value']);
+  });
 });
 
 // Test rendering

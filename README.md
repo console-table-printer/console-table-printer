@@ -159,6 +159,7 @@ new Table({
 
 - `addRow(rowObjet, options)` adding single row. This can be chained
 - `addRows(rowObjects, options)` adding multiple rows. array of row object. This case options will be applied to all the objects in row
+- `clearRows()` removes all rows while keeping the table columns and options. This can be chained
 - `addColumn(columnObject)` adding single column
 - `addColumns(columnObjects)` adding multiple columns
 - `printTable()` Prints the table on your console

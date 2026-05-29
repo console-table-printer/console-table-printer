@@ -36,6 +36,11 @@ export default class Table {
     return this;
   }
 
+  clearRows() {
+    this.table.clearRows();
+    return this;
+  }
+
   printTable() {
     const tableRendered = this.table.renderTable();
     console.log(tableRendered);

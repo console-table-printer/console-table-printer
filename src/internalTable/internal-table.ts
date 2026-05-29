@@ -170,6 +170,10 @@ class TableInternal {
     });
   }
 
+  clearRows() {
+    this.rows = [];
+  }
+
   renderTable() {
     return renderTable(this);
   }
