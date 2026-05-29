@@ -1,3 +1,10 @@
+# [2.16.0](https://github.com/console-table-printer/console-table-printer/compare/v2.15.3...v2.16.0) (2026-05-29)
+
+
+### Features
+
+* Clear rows ([#581](https://github.com/console-table-printer/console-table-printer/issues/581)) ([2838df2](https://github.com/console-table-printer/console-table-printer/commit/2838df28afe095e2d0b91147aee6e7a86680a83a))
+
 ## [2.15.3](https://github.com/console-table-printer/console-table-printer/compare/v2.15.2...v2.15.3) (2026-05-28)
 
 
