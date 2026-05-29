@@ -72,28 +72,6 @@ describe('General Table Functionality', () => {
     expect(table.render()).toMatchSnapshot();
   });
 
-  it('should clear rows and allow adding replacement rows', () => {
-    const table = new Table({
-      shouldDisableColors: true,
-      columns: [{ name: 'id' }, { name: 'status' }],
-    });
-
-    table
-      .addRows([
-        { id: 1, status: 'Queued' },
-        { id: 2, status: 'Running' },
-      ])
-      .clearRows()
-      .addRow({ id: 3, status: 'Done' });
-
-    const [renderedHeader, renderedBody] = [
-      getTableHeader(table),
-      getTableBody(table),
-    ];
-    expect(renderedHeader).toEqual('│ id │ status │');
-    expect(renderedBody).toEqual(['│  3 │   Done │']);
-  });
-
   it('should make sure each column is what its expected to be', () => {
     const table = new Table({
       shouldDisableColors: true,

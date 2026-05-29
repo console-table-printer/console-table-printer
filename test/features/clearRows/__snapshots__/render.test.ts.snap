@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Clear Rows Tests: Rendering should clear existing rows and render replacement rows 1`] = `
+"┌────┬────────┐
+│ id │ status │
+├────┼────────┤
+│  3 │   Done │
+└────┴────────┘"
+`;
+
+exports[`Clear Rows Tests: Rendering should render an empty table after rows are cleared 1`] = `
+"┌──────┬───────┐
+│ name │ score │
+├──────┼───────┤
+└──────┴───────┘"
+`;
