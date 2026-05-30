@@ -1,20 +1,20 @@
 import { Table } from '../../../index';
 import { getTableBody, getTableHeader } from '../../testUtils/getRawData';
 
-describe('Testing add columnd and verifying the output', () => {
+describe('Testing add columns and verifying the output', () => {
   [20, 30, 40, 50, 60, 100].forEach((len) => {
     it(`should handle columns with maxLen constraint ${len}`, () => {
-      const columnName = `trunCol:maxLen:${len}`;
+      const columnName = `taskNoteMax${len}`;
 
       const p = new Table({
         shouldDisableColors: true,
       })
         .addColumn({ name: columnName, maxLen: len })
-        .addColumn({ name: 'normalColumn' });
+        .addColumn({ name: 'unwrappedTaskNote' });
 
       p.addRow({
-        [columnName]: 'This text should be truncated',
-        normalColumn: 'This text should not be truncated',
+        [columnName]: 'This task note should wrap at the configured width',
+        unwrappedTaskNote: 'This task note should keep its full width',
         emptyColumn: '',
       });
 
@@ -36,27 +36,28 @@ describe('Testing add columnd and verifying the output', () => {
 
   [20, 30, 40, 50, 60, 100].forEach((len) => {
     it(`should handle columns with minLen constraint ${len}`, () => {
-      const columnName = `paddedColumn:minLen:${len}`;
+      const columnName = `paddedTaskNote:minLen:${len}`;
 
       const p = new Table({
         shouldDisableColors: true,
       })
         .addColumn({ name: columnName, minLen: len })
-        .addColumn({ name: 'normalColumn' })
+        .addColumn({ name: 'unpaddedTaskNote' })
         .addRows([
           {
-            [columnName]: 'This text should be padded',
-            normalColumn: 'This text should not be padded',
+            [columnName]: 'This task note should be padded',
+            unpaddedTaskNote: 'This task note keeps natural width',
             emptyColumn: '',
           },
           {
-            [columnName]: 'This text should be padded again',
-            normalColumn: 'This text should not be padded again',
+            [columnName]: 'This task note should be padded again',
+            unpaddedTaskNote: 'This task note keeps natural width again',
             emptyColumn: '',
           },
           {
-            [columnName]: 'This text should be padded again and again',
-            normalColumn: 'This text should not be padded again and again',
+            [columnName]: 'This task note should be padded again and again',
+            unpaddedTaskNote:
+              'This task note keeps natural width again and again',
             emptyColumn: '',
           },
         ]);
@@ -93,7 +94,7 @@ describe('Testing add columnd and verifying the output', () => {
         { input: 'short', description: 'shorter than fixed length' },
         { input: 'x'.repeat(fixedLen), description: 'exactly fixed length' },
         {
-          input: 'this is a very long text that needs truncation',
+          input: 'this fixed-width task note needs wrapping',
           description: 'longer than fixed length',
         },
       ];
@@ -134,7 +135,7 @@ describe('Testing add columnd and verifying the output', () => {
         { input: 'short', description: 'shorter than fixed length' },
         { input: 'x'.repeat(fixedLen), description: 'exactly fixed length' },
         {
-          input: 'this is a very long text that needs truncation',
+          input: 'this fixed-width task note needs wrapping',
           description: 'longer than fixed length',
         },
       ];
@@ -168,10 +169,12 @@ describe('Testing add columnd and verifying the output', () => {
     { min: 30, max: 40 },
   ].forEach(({ min, max }) => {
     it(`should handle column with minLen ${min} and maxLen ${max}`, () => {
+      const columnName = `taskNote${min}to${max}`;
+
       const p = new Table({
         shouldDisableColors: true,
       }).addColumn({
-        name: `col:min${min}:max${max}`,
+        name: columnName,
         minLen: min,
         maxLen: max,
       });
@@ -181,13 +184,13 @@ describe('Testing add columnd and verifying the output', () => {
         { input: 'short', description: 'shorter than minLen' },
         { input: 'x'.repeat(min), description: 'exactly minLen' },
         {
-          input: 'this is a very long text that needs truncation',
+          input: 'this bounded task note needs wrapping',
           description: 'longer than maxLen',
         },
       ];
 
       testData.forEach(({ input }) => {
-        p.addRow({ [`col:min${min}:max${max}`]: input });
+        p.addRow({ [columnName]: input });
       });
 
       const contentLines = getTableBody(p);
@@ -211,17 +214,17 @@ describe('Testing add columnd and verifying the output', () => {
       shouldDisableColors: true,
     })
       .addColumn({
-        name: 'complexColumn',
+        name: 'reviewState',
         alignment: 'center',
         color: 'blue',
-        title: 'Complex Column',
+        title: 'Review State',
       })
-      .addColumn('simpleColumn')
-      .addRow({ complexColumn: 'complexValue', simpleColumn: 'simpleValue' });
+      .addColumn('reviewOwner')
+      .addRow({ reviewState: 'Approved', reviewOwner: 'Dana' });
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│ Complex Column │ simpleColumn │');
-    expect(renderedBody).toEqual(['│  complexValue  │  simpleValue │']);
+    expect(renderedHeader).toEqual('│ Review State │ reviewOwner │');
+    expect(renderedBody).toEqual(['│   Approved   │        Dana │']);
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -232,20 +235,20 @@ describe('Testing add columnd and verifying the output', () => {
     });
 
     // Add initial columns and data
-    p.addColumns(['col1', 'col2']).addRows([
-      { col1: 'value1', col2: 'value2' },
-      { col1: 'value3', col2: 'value4' },
+    p.addColumns(['task', 'owner']).addRows([
+      { task: 'Docs', owner: 'Ana' },
+      { task: 'API', owner: 'Ben' },
     ]);
 
     // Add a new column
-    p.addColumn('col3');
-    p.addRows([{ col1: 'value5', col2: 'value6', col3: 'value7' }]);
+    p.addColumn('status');
+    p.addRows([{ task: 'Release', owner: 'Cam', status: 'Done' }]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
 
     // Verify header structure
     const headerParts = renderedHeader.split('│').map((part) => part.trim());
-    expect(headerParts).toContain('col3');
+    expect(headerParts).toContain('status');
     expect(renderedBody).toHaveLength(3); // Three rows
 
     // Verify body structure and content
@@ -260,7 +263,7 @@ describe('Testing add columnd and verifying the output', () => {
     expect(secondRowParts[3]).toBe('');
 
     // Check the value in the last row's last column
-    expect(lastRowParts[3]).toBe('value7');
+    expect(lastRowParts[3]).toBe('Done');
 
     // Verify all rows have correct number of columns
     expect(firstRowParts.length).toBe(5); // Including empty parts at start/end
@@ -275,24 +278,24 @@ describe('Testing add columnd and verifying the output', () => {
       shouldDisableColors: true,
     });
 
-    p.addColumns(['col1']).addRows([{ col1: 'value1' }]);
+    p.addColumns(['task']).addRows([{ task: 'Prepare' }]);
 
     // Add a column with alignment and title
     p.addColumn({
-      name: 'col2',
+      name: 'durationMinutes',
       alignment: 'right',
-      title: 'Column Two',
+      title: 'Duration',
     });
-    p.addRows([{ col1: 'value2', col2: '123' }]);
+    p.addRows([{ task: 'Build', durationMinutes: '45' }]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     const headerParts = renderedHeader.split('│').map((part) => part.trim());
     const bodyParts = renderedBody[1].split('│').map((part) => part.trim());
 
     // Verify custom title is used
-    expect(headerParts).toContain('Column Two');
+    expect(headerParts).toContain('Duration');
     // Verify right alignment (value should be at the end of its cell)
-    expect(bodyParts[2]).toBe('123');
+    expect(bodyParts[2]).toBe('45');
 
     expect(p.render()).toMatchSnapshot();
   });
@@ -302,15 +305,15 @@ describe('Testing add columnd and verifying the output', () => {
       shouldDisableColors: true,
     });
 
-    p.addColumn('col1').addRows([{ col1: 'text' }]);
+    p.addColumn('rowLabel').addRows([{ rowLabel: 'baseline' }]);
 
     // Add a column and test different data types
-    p.addColumn('col2');
+    p.addColumn('renderedValue');
     p.addRows([
-      { col1: 'row1', col2: 123 },
-      { col1: 'row2', col2: true },
-      { col1: 'row3', col2: null },
-      { col1: 'row4', col2: undefined },
+      { rowLabel: 'number row', renderedValue: 123 },
+      { rowLabel: 'boolean row', renderedValue: true },
+      { rowLabel: 'null row', renderedValue: null },
+      { rowLabel: 'undefined row', renderedValue: undefined },
     ]);
 
     const renderedBody = getTableBody(p);
@@ -333,25 +336,25 @@ describe('Testing add columnd and verifying the output', () => {
     });
 
     // Add columns in sequence
-    p.addColumn('col1');
-    p.addColumn('col2');
-    p.addColumn('col3');
+    p.addColumn('stepName');
+    p.addColumn('stepOwner');
+    p.addColumn('stepStatus');
 
-    p.addRows([{ col1: '1', col2: '2', col3: '3' }]);
+    p.addRows([{ stepName: 'Design', stepOwner: 'Mira', stepStatus: 'Ready' }]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
     const headerParts = renderedHeader.split('│').map((part) => part.trim());
     const bodyParts = renderedBody[0].split('│').map((part) => part.trim());
 
     // Verify column order is maintained
-    expect(headerParts[1]).toBe('col1');
-    expect(headerParts[2]).toBe('col2');
-    expect(headerParts[3]).toBe('col3');
+    expect(headerParts[1]).toBe('stepName');
+    expect(headerParts[2]).toBe('stepOwner');
+    expect(headerParts[3]).toBe('stepStatus');
 
     // Verify data order matches column order
-    expect(bodyParts[1]).toBe('1');
-    expect(bodyParts[2]).toBe('2');
-    expect(bodyParts[3]).toBe('3');
+    expect(bodyParts[1]).toBe('Design');
+    expect(bodyParts[2]).toBe('Mira');
+    expect(bodyParts[3]).toBe('Ready');
 
     expect(p.render()).toMatchSnapshot();
   });

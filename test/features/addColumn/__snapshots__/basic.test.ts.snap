@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Testing adding columns should allow add new columns in a chain way 1`] = `
-"┌─────┬─────┐
-│[37m [0m[01mfoo[0m │[37m [0m[01mbar[0m │
-├─────┼─────┤
-│[37m [0m[37m  1[0m │[37m [0m[37m   [0m │
-│[37m [0m[37m   [0m │[37m [0m[37m  2[0m │
-└─────┴─────┘"
+"┌────────┬───────────┐
+│[37m [0m[01mtaskId[0m │[37m [0m[01mtaskOwner[0m │
+├────────┼───────────┤
+│[37m [0m[37mTASK-1[0m │[37m [0m[37m         [0m │
+│[37m [0m[37m      [0m │[37m [0m[37m      Ops[0m │
+└────────┴───────────┘"
 `;
 
 exports[`Testing adding columns should allow adding a complex column object with chaining 1`] = `
-"┌────────────────┬──────────────┐
-│[37m [0m[01mComplex Column[0m │[37m [0m[01msimpleColumn[0m │
-├────────────────┼──────────────┤
-│[37m [0m[34m complexValue [0m │[37m [0m[37m simpleValue[0m │
-└────────────────┴──────────────┘"
+"┌──────────────┬─────────────┐
+│[37m [0m[01mReview State[0m │[37m [0m[01mreviewOwner[0m │
+├──────────────┼─────────────┤
+│[37m [0m[34m  Approved  [0m │[37m [0m[37m       Dana[0m │
+└──────────────┴─────────────┘"
 `;
 
 exports[`Testing adding columns should allow adding a single column 1`] = `
 "┌──────────────┐
-│[37m [0m[01msingleColumn[0m │
+│[37m [0m[01mticketStatus[0m │
 ├──────────────┤
-│[37m [0m[37m       value[0m │
+│[37m [0m[37m       Ready[0m │
 └──────────────┘"
 `;
 
@@ -42,9 +42,9 @@ exports[`Testing adding columns should allow adding columns with different align
 `;
 
 exports[`Testing adding columns should allow adding multiple columns 1`] = `
-"┌────────┬────────┐
-│[37m [0m[01m  col1[0m │[37m [0m[01m  col2[0m │
-├────────┼────────┤
-│[37m [0m[37mvalue1[0m │[37m [0m[37mvalue2[0m │
-└────────┴────────┘"
+"┌──────────┬──────────┐
+│[37m [0m[01mtaskName[0m │[37m [0m[01mpriority[0m │
+├──────────┼──────────┤
+│[37m [0m[37m  Deploy[0m │[37m [0m[37m    High[0m │
+└──────────┴──────────┘"
 `;

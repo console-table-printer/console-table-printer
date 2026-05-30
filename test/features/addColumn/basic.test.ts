@@ -3,25 +3,25 @@ import { Table } from '../../../index';
 describe('Testing adding columns', () => {
   it('should allow add new columns in a chain way', () => {
     const p = new Table()
-      .addColumn('foo')
-      .addColumns(['bar'])
-      .addRow({ foo: '1' })
-      .addRows([{ bar: '2' }]);
+      .addColumn('taskId')
+      .addColumns(['taskOwner'])
+      .addRow({ taskId: 'TASK-1' })
+      .addRows([{ taskOwner: 'Ops' }]);
 
     p.printTable();
     expect(p.render()).toMatchSnapshot();
   });
 
   it('should allow adding a single column', () => {
-    const p = new Table().addColumn('singleColumn');
-    p.addRow({ singleColumn: 'value' });
+    const p = new Table().addColumn('ticketStatus');
+    p.addRow({ ticketStatus: 'Ready' });
     p.printTable();
     expect(p.render()).toMatchSnapshot();
   });
 
   it('should allow adding multiple columns', () => {
-    const p = new Table().addColumns(['col1', 'col2']);
-    p.addRow({ col1: 'value1', col2: 'value2' });
+    const p = new Table().addColumns(['taskName', 'priority']);
+    p.addRow({ taskName: 'Deploy', priority: 'High' });
     p.printTable();
     expect(p.render()).toMatchSnapshot();
   });
@@ -45,13 +45,13 @@ describe('Testing adding columns', () => {
   it('should allow adding a complex column object with chaining', () => {
     const p = new Table()
       .addColumn({
-        name: 'complexColumn',
+        name: 'reviewState',
         alignment: 'center',
         color: 'blue',
-        title: 'Complex Column',
+        title: 'Review State',
       })
-      .addColumn('simpleColumn')
-      .addRow({ complexColumn: 'complexValue', simpleColumn: 'simpleValue' });
+      .addColumn('reviewOwner')
+      .addRow({ reviewState: 'Approved', reviewOwner: 'Dana' });
     p.printTable();
     expect(p.render()).toMatchSnapshot();
   });
