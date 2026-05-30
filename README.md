@@ -1,7 +1,7 @@
 <h1 align="center">console-table-printer</h1>
 
 > 🖥️🍭 Printing pretty tables in your console
- 
+
 ![NPM Downloads](https://img.shields.io/npm/dw/console-table-printer)
 [![install size](https://packagephobia.com/badge?p=console-table-printer)](https://packagephobia.com/result?p=console-table-printer)
 [![npm version](https://badge.fury.io/js/console-table-printer.svg)](https://badge.fury.io/js/console-table-printer)
