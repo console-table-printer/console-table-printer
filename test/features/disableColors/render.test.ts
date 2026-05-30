@@ -1,4 +1,9 @@
 import { Table } from '../../../index';
+import {
+  ANSI_COLOR_CODES,
+  getAnsiColorCodes,
+  stripAnsiColorCodes,
+} from '../../testUtils/getRawData';
 
 describe('Disable Colors Tests: Rendering', () => {
   it('should remove ANSI color codes while preserving rendered spacing', () => {
@@ -9,14 +14,16 @@ describe('Disable Colors Tests: Rendering', () => {
 
     table.addRow({ status: 'Ready' }, { color: 'red' });
 
-    expect(table.render().split('\n')).toEqual([
+    const rendered = table.render();
+
+    expect(rendered.split('\n')).toEqual([
       '┌────────┐',
       '│ status │',
       '├────────┤',
       '│  Ready │',
       '└────────┘',
     ]);
-    expect(table.render()).not.toMatch(/\x1b\[[0-9;]*m/);
+    expect(getAnsiColorCodes(rendered)).toEqual([]);
   });
 
   it('should keep ANSI color codes when colors are enabled', () => {
@@ -26,12 +33,21 @@ describe('Disable Colors Tests: Rendering', () => {
 
     table.addRow({ status: 'Ready' }, { color: 'red' });
 
-    expect(table.render().split('\n')).toEqual([
+    const rendered = table.render();
+
+    expect(stripAnsiColorCodes(rendered).split('\n')).toEqual([
       '┌────────┐',
-      '│\x1b[37m \x1b[0m\x1b[01mstatus\x1b[0m │',
+      '│ status │',
       '├────────┤',
-      '│\x1b[37m \x1b[0m\x1b[32m Ready\x1b[0m │',
+      '│  Ready │',
       '└────────┘',
     ]);
+    expect(getAnsiColorCodes(rendered)).toEqual(
+      expect.arrayContaining([
+        ANSI_COLOR_CODES.white_bold,
+        ANSI_COLOR_CODES.green,
+        ANSI_COLOR_CODES.reset,
+      ])
+    );
   });
 });
