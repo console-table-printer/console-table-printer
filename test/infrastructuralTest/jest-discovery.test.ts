@@ -44,9 +44,21 @@ describe('Jest Test Discovery', () => {
     'test/features/alignment/render.test.ts',
     'test/features/alignment/verifyOutput.test.ts',
 
+    'test/features/borderStyle/basic.test.ts',
+    'test/features/borderStyle/render.test.ts',
+    'test/features/borderStyle/verifyOutput.test.ts',
+
+    'test/features/charLength/basic.test.ts',
+    'test/features/charLength/render.test.ts',
+    'test/features/charLength/verifyOutput.test.ts',
+
     'test/features/columnColor/basic.test.ts',
     'test/features/columnColor/render.test.ts',
     'test/features/columnColor/verifyOutput.test.ts',
+
+    'test/features/columnVisibility/basic.test.ts',
+    'test/features/columnVisibility/render.test.ts',
+    'test/features/columnVisibility/verifyOutput.test.ts',
 
     'test/features/clearRows/basic.test.ts',
     'test/features/clearRows/render.test.ts',
@@ -63,9 +75,53 @@ describe('Jest Test Discovery', () => {
     'test/features/defaultColumnStyles/verify.test.ts',
     'test/features/defaultColumnStyles/verifyInternalTable.test.ts',
 
+    'test/features/disableColors/basic.test.ts',
+    'test/features/disableColors/render.test.ts',
+    'test/features/disableColors/verifyOutput.test.ts',
+
+    'test/features/filtering/basic.test.ts',
+    'test/features/filtering/render.test.ts',
+    'test/features/filtering/verifyOutput.test.ts',
+
+    'test/features/headerTitle/basic.test.ts',
+    'test/features/headerTitle/render.test.ts',
+    'test/features/headerTitle/verifyOutput.test.ts',
+
+    'test/features/multilineCells/basic.test.ts',
+    'test/features/multilineCells/render.test.ts',
+    'test/features/multilineCells/verifyOutput.test.ts',
+
+    'test/features/rowSeparator/basic.test.ts',
+    'test/features/rowSeparator/render.test.ts',
+    'test/features/rowSeparator/verifyOutput.test.ts',
+
+    'test/features/rowColor/basic.test.ts',
+    'test/features/rowColor/render.test.ts',
+    'test/features/rowColor/verifyOutput.test.ts',
+
+    'test/features/simpleHelpers/basic.test.ts',
+    'test/features/simpleHelpers/render.test.ts',
+    'test/features/simpleHelpers/verifyOutput.test.ts',
+
+    'test/features/sorting/basic.test.ts',
+    'test/features/sorting/render.test.ts',
+    'test/features/sorting/verifyOutput.test.ts',
+
+    'test/features/tableConstruction/basic.test.ts',
+    'test/features/tableConstruction/render.test.ts',
+    'test/features/tableConstruction/verifyOutput.test.ts',
+
+    'test/features/title/basic.test.ts',
+    'test/features/title/render.test.ts',
+    'test/features/title/verifyOutput.test.ts',
+
     'test/features/transform/basic.test.ts',
     'test/features/transform/render.test.ts',
     'test/features/transform/verifyOutput.test.ts',
+
+    'test/features/unicode/basic.test.ts',
+    'test/features/unicode/render.test.ts',
+    'test/features/unicode/verifyOutput.test.ts',
 
     'test/features/columnMaxMinLen/basic.test.ts',
     'test/features/columnMaxMinLen/render.test.ts',
