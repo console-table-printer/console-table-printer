@@ -127,7 +127,7 @@ Snapshot tests are a core part of this repo. Only update snapshots when the rend
 
 ### Feature Test Layout
 
-For a new public feature, prefer a dedicated folder under `test/features/<feature>/` instead of adding all coverage to broad root tests. Match the existing feature-test style:
+For a new public feature, prefer a dedicated folder under `test/features/<feature>/` instead of adding all coverage to broad root tests. Create all three standard files for the feature folder so coverage is split by purpose:
 
 - `basic.test.ts`: user-facing examples and chainability, usually with `expect(table.render()).toMatchSnapshot()`.
 - `render.test.ts`: precise rendered-output assertions using `getTableHeader` and `getTableBody` from `test/testUtils/getRawData.ts`, plus snapshots when useful.
