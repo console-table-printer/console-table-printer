@@ -5,7 +5,7 @@
 # - Builds the package on Node.js 22.x
 # - Runs all tests to ensure functionality
 # - Creates a package tarball
-# - Tests the packaged version across multiple Node.js versions (14.x, 16.x, 18.x, 20.x, 22.x)
+# - Tests the packaged version across multiple Node.js versions (14.x, 16.x, 18.x, 20.x, 22.x, 26.x)
 # - Verifies the package can be installed and used correctly on each Node.js version
 #
 # This ensures backward compatibility and that the package works for users on different Node.js versions.
@@ -63,7 +63,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x, 20.x, 22.x]
+        node-version: [14.x, 16.x, 18.x, 20.x, 22.x, 26.x]
         os: [ubuntu-latest, windows-latest]
       fail-fast: false
 
