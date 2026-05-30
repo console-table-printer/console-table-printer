@@ -7,17 +7,17 @@ describe('Add Column Tests: Rendering', () => {
       shouldDisableColors: true,
     })
       .addColumn({
-        name: 'complexColumn',
+        name: 'reviewState',
         alignment: 'center',
         color: 'blue',
-        title: 'Complex Column',
+        title: 'Review State',
       })
-      .addColumn('simpleColumn')
-      .addRow({ complexColumn: 'complexValue', simpleColumn: 'simpleValue' });
+      .addColumn('reviewOwner')
+      .addRow({ reviewState: 'Approved', reviewOwner: 'Dana' });
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│ Complex Column │ simpleColumn │');
-    expect(renderedBody).toEqual(['│  complexValue  │  simpleValue │']);
+    expect(renderedHeader).toEqual('│ Review State │ reviewOwner │');
+    expect(renderedBody).toEqual(['│   Approved   │        Dana │']);
 
     // Add snapshot test
     expect(p.render()).toMatchSnapshot();
@@ -29,21 +29,21 @@ describe('Add Column Tests: Rendering', () => {
     });
 
     // Add initial columns and data
-    p.addColumns(['col1', 'col2']).addRows([
-      { col1: 'value1', col2: 'value2' },
-      { col1: 'value3', col2: 'value4' },
+    p.addColumns(['task', 'owner']).addRows([
+      { task: 'Docs', owner: 'Ana' },
+      { task: 'API', owner: 'Ben' },
     ]);
 
     // Add a new column
-    p.addColumn('col3');
-    p.addRows([{ col1: 'value5', col2: 'value6', col3: 'value7' }]);
+    p.addColumn('status');
+    p.addRows([{ task: 'Release', owner: 'Cam', status: 'Done' }]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│   col1 │   col2 │   col3 │');
+    expect(renderedHeader).toEqual('│    task │ owner │ status │');
     expect(renderedBody).toEqual([
-      '│ value1 │ value2 │        │',
-      '│ value3 │ value4 │        │',
-      '│ value5 │ value6 │ value7 │',
+      '│    Docs │   Ana │        │',
+      '│     API │   Ben │        │',
+      '│ Release │   Cam │   Done │',
     ]);
 
     // Add snapshot test
@@ -55,21 +55,21 @@ describe('Add Column Tests: Rendering', () => {
       shouldDisableColors: true,
     });
 
-    p.addColumns(['col1']).addRows([{ col1: 'value1' }]);
+    p.addColumns(['task']).addRows([{ task: 'Prepare' }]);
 
     // Add a column with alignment and title
     p.addColumn({
-      name: 'col2',
+      name: 'durationMinutes',
       alignment: 'right',
-      title: 'Column Two',
+      title: 'Duration',
     });
-    p.addRows([{ col1: 'value2', col2: '123' }]);
+    p.addRows([{ task: 'Build', durationMinutes: '45' }]);
 
     const [renderedHeader, renderedBody] = [getTableHeader(p), getTableBody(p)];
-    expect(renderedHeader).toEqual('│   col1 │ Column Two │');
+    expect(renderedHeader).toEqual('│    task │ Duration │');
     expect(renderedBody).toEqual([
-      '│ value1 │            │',
-      '│ value2 │        123 │',
+      '│ Prepare │          │',
+      '│   Build │       45 │',
     ]);
 
     // Add snapshot test

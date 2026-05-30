@@ -1,28 +1,28 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Add Column Tests: Rendering should make sure each column is what its expected to be 1`] = `
-"┌────────────────┬──────────────┐
-│ Complex Column │ simpleColumn │
-├────────────────┼──────────────┤
-│  complexValue  │  simpleValue │
-└────────────────┴──────────────┘"
+"┌──────────────┬─────────────┐
+│ Review State │ reviewOwner │
+├──────────────┼─────────────┤
+│   Approved   │        Dana │
+└──────────────┴─────────────┘"
 `;
 
 exports[`Add Column Tests: Rendering should verify addColumn with custom properties 1`] = `
-"┌────────┬────────────┐
-│   col1 │ Column Two │
-├────────┼────────────┤
-│ value1 │            │
-│ value2 │        123 │
-└────────┴────────────┘"
+"┌─────────┬──────────┐
+│    task │ Duration │
+├─────────┼──────────┤
+│ Prepare │          │
+│   Build │       45 │
+└─────────┴──────────┘"
 `;
 
 exports[`Add Column Tests: Rendering should verify that addColumn preserves existing data 1`] = `
-"┌────────┬────────┬────────┐
-│   col1 │   col2 │   col3 │
-├────────┼────────┼────────┤
-│ value1 │ value2 │        │
-│ value3 │ value4 │        │
-│ value5 │ value6 │ value7 │
-└────────┴────────┴────────┘"
+"┌─────────┬───────┬────────┐
+│    task │ owner │ status │
+├─────────┼───────┼────────┤
+│    Docs │   Ana │        │
+│     API │   Ben │        │
+│ Release │   Cam │   Done │
+└─────────┴───────┴────────┘"
 `;
