@@ -44,9 +44,13 @@ describe('Jest Test Discovery', () => {
     'test/features/alignment/render.test.ts',
     'test/features/alignment/verifyOutput.test.ts',
 
+    'test/features/borderStyle/render.test.ts',
+
     'test/features/columnColor/basic.test.ts',
     'test/features/columnColor/render.test.ts',
     'test/features/columnColor/verifyOutput.test.ts',
+
+    'test/features/columnVisibility/render.test.ts',
 
     'test/features/clearRows/basic.test.ts',
     'test/features/clearRows/render.test.ts',
@@ -62,6 +66,24 @@ describe('Jest Test Discovery', () => {
     'test/features/defaultColumnStyles/render.test.ts',
     'test/features/defaultColumnStyles/verify.test.ts',
     'test/features/defaultColumnStyles/verifyInternalTable.test.ts',
+
+    'test/features/disableColors/render.test.ts',
+
+    'test/features/filtering/render.test.ts',
+
+    'test/features/headerTitle/render.test.ts',
+
+    'test/features/multilineCells/render.test.ts',
+
+    'test/features/rowSeparator/render.test.ts',
+
+    'test/features/simpleHelpers/render.test.ts',
+
+    'test/features/sorting/render.test.ts',
+
+    'test/features/tableConstruction/render.test.ts',
+
+    'test/features/title/render.test.ts',
 
     'test/features/transform/basic.test.ts',
     'test/features/transform/render.test.ts',
