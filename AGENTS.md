@@ -98,6 +98,33 @@ When adding or changing public behavior:
 
 Prefer preserving existing API compatibility. This package is tested as an installed dependency, so changes to `main`, `types`, emitted file structure, or package contents can break CI even when source tests pass.
 
+### Cross-Repository Coordination
+
+The companion repositories are usually checked out next to this repo:
+
+- `../console-table-docu`: the Docusaurus documentation site.
+- `../table-printer-cli`: the command-line interface that delegates rendering to this library.
+
+Treat a user-facing feature as incomplete until the relevant companion surfaces can declare or consume it clearly.
+
+When public API or visible behavior changes, check whether the docs repo needs:
+
+- A guide page under `docs/doc-*.md` for standalone user workflows.
+- API reference updates under `docs/api/` for signatures, options, return values, and examples.
+- A `sidebars.js` entry for new pages.
+- Cypress page/link/url test updates when page titles, sidebar labels, URLs, or required headings change.
+- New screenshots under `static/img/examples/<doc-id>/` when the feature is visual or easier to understand from rendered output.
+- Cross-links from related docs so users can discover the behavior from the most likely starting point.
+
+When table options, rendering behavior, install expectations, or examples change, check whether the CLI repo needs:
+
+- README or screenshot updates for `ctp` usage.
+- Tests under `test/readmeExamples/` for CLI examples that pass table options through.
+- Compatibility checks for the `console-table-printer` dependency version.
+- Docs-site CLI page updates in `../console-table-docu`.
+
+Pay special attention to options and exports in `index.ts` and `src/models/external-table.ts`. If something is exported or typed for users, it should either be documented directly or intentionally covered by an existing API reference section.
+
 ### End-To-End Feature Workflow
 
 For a new feature, make the change through the same layers a user exercises:
