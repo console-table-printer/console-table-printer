@@ -19,9 +19,20 @@
   },
   "keywords": [
     "console-table",
-    "console-log",
-    "print-table",
-    "node-table-printing"
+    "cli-table",
+    "terminal-table",
+    "node-table",
+    "typescript-table",
+    "pretty-table",
+    "table-printer",
+    "table-formatter",
+    "console-output",
+    "ascii-table",
+    "unicode-table",
+    "colored-table",
+    "pretty-print",
+    "object-table",
+    "array-to-table"
   ],
   "files": [
     "dist"
