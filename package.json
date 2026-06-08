@@ -20,8 +20,6 @@
   "keywords": [
     "console-table",
     "terminal-table",
-    "typescript-table",
-    "node-table",
     "table-printer",
     "pretty-table",
     "cli-table",
@@ -32,6 +30,8 @@
     "table-formatter",
     "object-table",
     "pretty-print",
+    "json-table",
+    "json-to-table",
     "array-to-table"
   ],
   "files": [
@@ -44,10 +44,10 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.1",
-    "eslint": "^10.4.0",
+    "@types/node": "^25.9.2",
+    "eslint": "^10.4.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-prettier": "^5.5.6",
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "prettier": "^3.8.3",
@@ -55,7 +55,7 @@
     "semantic-release": "^25.0.3",
     "ts-jest": "^29.4.11",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.0"
+    "typescript-eslint": "^8.60.1"
   },
   "homepage": "https://console-table.netlify.app",
   "dependencies": {
