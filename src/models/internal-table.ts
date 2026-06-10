@@ -1,5 +1,5 @@
 import { ALIGNMENT, COLOR } from './common';
-import { Valuetransform } from './external-table';
+import { ColumnHeaderOptions, Valuetransform } from './external-table';
 
 /* 
 All the fields of Internal Table has to be mandatory
@@ -16,6 +16,7 @@ export interface Column {
   minLen?: number;
   maxLen?: number;
   transform?: Valuetransform;
+  header?: ColumnHeaderOptions;
 }
 
 type TableLineDetailsKeys = 'left' | 'right' | 'mid' | 'other';

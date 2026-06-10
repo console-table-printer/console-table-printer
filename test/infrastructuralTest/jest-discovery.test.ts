@@ -87,6 +87,10 @@ describe('Jest Test Discovery', () => {
     'test/features/headerTitle/render.test.ts',
     'test/features/headerTitle/verifyOutput.test.ts',
 
+    'test/features/headerOptions/basic.test.ts',
+    'test/features/headerOptions/render.test.ts',
+    'test/features/headerOptions/verifyOutput.test.ts',
+
     'test/features/multilineCells/basic.test.ts',
     'test/features/multilineCells/render.test.ts',
     'test/features/multilineCells/verifyOutput.test.ts',
