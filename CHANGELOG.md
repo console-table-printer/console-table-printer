@@ -1,3 +1,10 @@
+## [2.16.1](https://github.com/console-table-printer/console-table-printer/compare/v2.16.0...v2.16.1) (2026-06-08)
+
+
+### Bug Fixes
+
+* new Keywords ([#589](https://github.com/console-table-printer/console-table-printer/issues/589)) ([32cbade](https://github.com/console-table-printer/console-table-printer/commit/32cbade5d6cedd1553a056a2e61af1078c3e807f))
+
 # [2.16.0](https://github.com/console-table-printer/console-table-printer/compare/v2.15.3...v2.16.0) (2026-05-29)
 
 
