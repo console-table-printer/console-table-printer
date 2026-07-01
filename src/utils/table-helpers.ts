@@ -101,6 +101,7 @@ export const findLenOfColumn = (
   const columnId = column.name;
   const columnTitle = column.title;
   const datatransform = column.transform;
+  const isColumnHeaderVisible = column.header?.visible !== false;
   let length = max(0, column.minLen || 0);
 
   if (column.maxLen) {
@@ -108,7 +109,12 @@ export const findLenOfColumn = (
     // if others cant fit find the max word length so that at least the table can be printed
     length = max(
       length,
-      max(column.maxLen, biggestWordInSentence(columnTitle, charLength))
+      max(
+        column.maxLen,
+        isColumnHeaderVisible
+          ? biggestWordInSentence(columnTitle, charLength)
+          : 0
+      )
     );
     length = rows.reduce(
       (acc, row) =>
@@ -124,7 +130,9 @@ export const findLenOfColumn = (
     return length;
   }
 
-  length = max(length, findWidthInConsole(columnTitle, charLength));
+  if (isColumnHeaderVisible) {
+    length = max(length, findWidthInConsole(columnTitle, charLength));
+  }
 
   rows.forEach((row) => {
     length = max(
@@ -158,7 +166,8 @@ export const createHeaderAsRow = (
   const headerColor: COLOR = DEFAULT_HEADER_FONT_COLOR;
   const row: Row = createRowFn(headerColor, {}, false);
   columns.forEach((column) => {
-    row.text[column.name] = column.title;
+    row.text[column.name] =
+      column.header?.visible === false ? '' : column.title;
   });
   return row;
 };
