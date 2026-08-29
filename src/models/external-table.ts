@@ -11,6 +11,18 @@ export type CellValue = string | number | bigint | boolean | undefined | null;
 
 export type Valuetransform = (cellValue: CellValue) => CellValue;
 
+export type HeaderPosition = 'top' | 'bottom' | 'both';
+
+export interface ColumnHeaderOptions {
+  /** Whether to render this column's header cell content */
+  visible?: boolean;
+}
+
+export interface HeaderOptions extends ColumnHeaderOptions {
+  /** Where the header row should be rendered */
+  position?: HeaderPosition;
+}
+
 /**
  * Configuration options for a table column
  */
@@ -29,6 +41,8 @@ export interface ColumnOptionsRaw {
   minLen?: number;
   /** Value transform, For example 2.00000 => 2.0 */
   transform?: Valuetransform;
+  /** Header-specific options for this column */
+  header?: ColumnHeaderOptions;
 }
 
 /**
@@ -73,6 +87,8 @@ export interface DefaultColumnOptions {
   maxLen?: number;
   /** Default minimum length for all columns */
   minLen?: number;
+  /** Default header options applied to all columns */
+  header?: HeaderOptions;
 }
 
 /**

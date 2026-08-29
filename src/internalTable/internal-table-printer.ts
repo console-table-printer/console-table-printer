@@ -1,5 +1,5 @@
 import { CharLengthDict, Dictionary, Row } from '../models/common';
-import { ComplexOptions } from '../models/external-table';
+import { ComplexOptions, HeaderPosition } from '../models/external-table';
 import { Column, TableStyleDetails } from '../models/internal-table';
 import ColoredConsoleLine, { ColorMap } from '../utils/colored-console-line';
 import { textWithPadding } from '../utils/string-utils';
@@ -169,43 +169,35 @@ const renderTableTitle = (table: TableInternal): string[] => {
   return ret;
 };
 
-/*
- ╔═══════╦═══════════════════════════════════════╦════════╗
- ║ index ║                                  text ║  value ║
- ╟═══════╬═══════════════════════════════════════╬════════╢
-*/
-const renderTableHeaders = (table: TableInternal): string[] => {
-  let ret: string[] = [];
+const getColumnLengths = (table: TableInternal): number[] =>
+  table.columns.map((m: Column) => m.length || DEFAULT_COLUMN_LEN);
 
-  // ╔═══════╦═══════════════════════════════════════╦════════╗
-  ret.push(
-    renderTableHorizontalBorders(
-      table.tableStyle.headerTop,
-      table.columns.map((m: Column) => m.length || DEFAULT_COLUMN_LEN)
-    )
-  );
+const renderTableTop = (table: TableInternal): string[] => [
+  renderTableHorizontalBorders(
+    table.tableStyle.headerTop,
+    getColumnLengths(table)
+  ),
+];
 
-  // ║ index ║                                  text ║  value ║
+const renderHeaderSeparator = (table: TableInternal): string[] => [
+  renderTableHorizontalBorders(
+    table.tableStyle.headerBottom,
+    getColumnLengths(table)
+  ),
+];
+
+const isColumnHeaderVisible = (column: Column): boolean =>
+  column.header?.visible !== false;
+
+const renderTableHeaderRows = (table: TableInternal): string[] => {
   const row = createHeaderAsRow(createRow, table.columns);
-  ret = ret.concat(
-    renderWidthLimitedLines(
-      table.tableStyle,
-      table.columns,
-      row,
-      table.colorMap,
-      true
-    )
+  return renderWidthLimitedLines(
+    table.tableStyle,
+    table.columns,
+    row,
+    table.colorMap,
+    true
   );
-
-  // ╟═══════╬═══════════════════════════════════════╬════════╢
-  ret.push(
-    renderTableHorizontalBorders(
-      table.tableStyle.headerBottom,
-      table.columns.map((m) => m.length || DEFAULT_COLUMN_LEN)
-    )
-  );
-
-  return ret;
 };
 
 const renderTableEnding = (table: TableInternal): string[] => {
@@ -214,10 +206,28 @@ const renderTableEnding = (table: TableInternal): string[] => {
   ret.push(
     renderTableHorizontalBorders(
       table.tableStyle.tableBottom,
-      table.columns.map((m) => m.length || DEFAULT_COLUMN_LEN)
+      getColumnLengths(table)
     )
   );
   return ret;
+};
+
+const getHeaderPosition = (table: TableInternal): HeaderPosition =>
+  table.defaultColumnOptions?.header?.position || 'top';
+
+const shouldRenderHeader = (table: TableInternal): boolean =>
+  table.columns.some((column) => isColumnHeaderVisible(column));
+
+const shouldRenderHeaderAtTop = (table: TableInternal): boolean => {
+  const headerPosition = getHeaderPosition(table);
+  return shouldRenderHeader(table) && ['top', 'both'].includes(headerPosition);
+};
+
+const shouldRenderHeaderAtBottom = (table: TableInternal): boolean => {
+  const headerPosition = getHeaderPosition(table);
+  return (
+    shouldRenderHeader(table) && ['bottom', 'both'].includes(headerPosition)
+  );
 };
 
 const renderRowSeparator = (table: TableInternal, row: Row): string[] => {
@@ -244,12 +254,25 @@ export const renderTable = (table: TableInternal): string => {
   const ret: string[] = [];
   renderTableTitle(table).forEach((row) => ret.push(row));
 
-  renderTableHeaders(table).forEach((row) => ret.push(row));
+  renderTableTop(table).forEach((row) => ret.push(row));
+
+  if (shouldRenderHeaderAtTop(table)) {
+    renderTableHeaderRows(table).forEach((row) => ret.push(row));
+    renderHeaderSeparator(table).forEach((row) => ret.push(row));
+  }
 
   table.rows.forEach((row) => {
     renderRow(table, row).forEach((row_) => ret.push(row_));
     renderRowSeparator(table, row).forEach((row_) => ret.push(row_));
   });
+
+  if (shouldRenderHeaderAtBottom(table)) {
+    if (table.rows.length > 0) {
+      renderHeaderSeparator(table).forEach((row) => ret.push(row));
+    }
+    renderTableHeaderRows(table).forEach((row) => ret.push(row));
+  }
+
   renderTableEnding(table).forEach((row) => ret.push(row));
   return ret.join('\n');
 };
