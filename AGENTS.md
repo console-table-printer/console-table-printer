@@ -62,7 +62,7 @@ Notes:
 - `yarn typecheck` checks source and tests with native TypeScript 7. SWC transforms tests without type-checking. The `typescript` package alias provides the TypeScript 6 API required by ESLint; `@typescript/native` provides the TypeScript 7 `tsc` executable.
 - `yarn test` uses `jestconfig.json` and discovers both `test/**/*.test.*` and colocated `src/**/*.test.ts` files.
 - `yarn test:coverage` enforces global 80% thresholds for branches, functions, lines, and statements.
-- CI uses Node 24 for build/test/quality jobs, then validates the packed package on Node 14, 16, 18, 20, and 22.
+- CI uses Node 24 for build/test/quality jobs, then validates the packed package on Node 16, 18, 20, 22, and 26.
 
 ## Architecture Notes
 
