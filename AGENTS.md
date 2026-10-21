@@ -13,7 +13,7 @@ The public package entry point is `index.ts`. It exports:
 - `renderTable`: direct helper that renders an array of row objects to a string.
 - `COLOR` and `ALIGNMENT`: public TypeScript type exports from the external table model.
 
-The project uses Yarn, TypeScript, Jest with `ts-jest`, ESLint flat config, Prettier, and semantic-release.
+The project uses Yarn, TypeScript, Jest with `@swc/jest`, ESLint flat config, Prettier, and semantic-release.
 
 ## Repository Map
 
@@ -59,6 +59,7 @@ npm pack
 Notes:
 
 - `yarn build` runs `tsc` and emits CommonJS JavaScript plus `.d.ts` files into `dist/`.
+- `yarn typecheck` checks source and tests with native TypeScript 7. SWC transforms tests without type-checking. The `typescript` package alias provides the TypeScript 6 API required by ESLint; `@typescript/native` provides the TypeScript 7 `tsc` executable.
 - `yarn test` uses `jestconfig.json` and discovers both `test/**/*.test.*` and colocated `src/**/*.test.ts` files.
 - `yarn test:coverage` enforces global 80% thresholds for branches, functions, lines, and statements.
 - CI uses Node 24 for build/test/quality jobs, then validates the packed package on Node 14, 16, 18, 20, and 22.

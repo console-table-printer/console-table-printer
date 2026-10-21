@@ -209,15 +209,21 @@ describe('Jest Test Discovery', () => {
       // Expected configuration values
       const expectedConfig = {
         transform: {
-          '^.+\\.(t|j)sx?$': 'ts-jest',
+          '^.+\\.tsx?$': [
+            '@swc/jest',
+            {
+              jsc: { parser: { syntax: 'typescript' }, target: 'es2017' },
+              module: { type: 'commonjs' },
+            },
+          ],
         },
         testRegex: '(/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
         moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
       };
 
       // Verify essential configuration
-      expect(jestConfig.transform['^.+\\.(t|j)sx?$']).toBe(
-        expectedConfig.transform['^.+\\.(t|j)sx?$']
+      expect(jestConfig.transform['^.+\\.tsx?$']).toEqual(
+        expectedConfig.transform['^.+\\.tsx?$']
       );
       expect(jestConfig.testRegex).toBe(expectedConfig.testRegex);
       expect(jestConfig.moduleFileExtensions).toEqual(
