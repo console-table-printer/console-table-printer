@@ -54,7 +54,7 @@
     "pretty-quick": "^4.2.2",
     "semantic-release": "^25.0.9",
     "ts-jest": "^29.4.15",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.0"
   },
   "homepage": "https://console-table.netlify.app",
