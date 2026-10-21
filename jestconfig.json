@@ -1,6 +1,19 @@
 {
   "transform": {
-    "^.+\\.(t|j)sx?$": "ts-jest"
+    "^.+\\.tsx?$": [
+      "@swc/jest",
+      {
+        "jsc": {
+          "parser": {
+            "syntax": "typescript"
+          },
+          "target": "es2017"
+        },
+        "module": {
+          "type": "commonjs"
+        }
+      }
+    ]
   },
   "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   "testPathIgnorePatterns": [
