@@ -20,23 +20,34 @@ export const objIfExists = (key: string, val: any) => {
 export const rawColumnToInternalColumn = (
   column: ColumnOptionsRaw | ComputedColumn,
   defaultColumnStyles?: DefaultColumnOptions
-): Column => ({
-  name: column.name,
-  title: column.title ?? column.name,
-  ...objIfExists(
-    'color',
-    (column.color || defaultColumnStyles?.color) as COLOR
-  ),
-  ...objIfExists(
-    'maxLen',
-    (column.maxLen || defaultColumnStyles?.maxLen) as number
-  ),
-  ...objIfExists(
-    'minLen',
-    (column.minLen || defaultColumnStyles?.minLen) as number
-  ),
-  alignment: (column.alignment ||
-    defaultColumnStyles?.alignment ||
-    DEFAULT_ROW_ALIGNMENT) as ALIGNMENT,
-  transform: column.transform,
-});
+): Column => {
+  const header =
+    defaultColumnStyles?.header || column.header
+      ? {
+          ...defaultColumnStyles?.header,
+          ...column.header,
+        }
+      : undefined;
+
+  return {
+    name: column.name,
+    title: column.title ?? column.name,
+    ...objIfExists(
+      'color',
+      (column.color || defaultColumnStyles?.color) as COLOR
+    ),
+    ...objIfExists(
+      'maxLen',
+      (column.maxLen || defaultColumnStyles?.maxLen) as number
+    ),
+    ...objIfExists(
+      'minLen',
+      (column.minLen || defaultColumnStyles?.minLen) as number
+    ),
+    ...objIfExists('header', header),
+    alignment: (column.alignment ||
+      defaultColumnStyles?.alignment ||
+      DEFAULT_ROW_ALIGNMENT) as ALIGNMENT,
+    transform: column.transform,
+  };
+};
