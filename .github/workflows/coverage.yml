@@ -26,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Use Node.js 24
+      - name: Use Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: '24.22.1'
+          node-version-file: .nvmrc
           cache: 'yarn'
 
       - name: Install dependencies
