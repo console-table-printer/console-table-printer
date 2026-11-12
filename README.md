@@ -14,7 +14,7 @@ Print simple tables with colored rows in your console. It's useful when you want
 ## Installation
 
 ```bash
-yarn add console-table-printer
+npm install console-table-printer --save
 ```
 
 ## Basic Example
