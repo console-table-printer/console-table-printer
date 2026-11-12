@@ -40,7 +40,7 @@
  * - Feature overhead: Advanced features should not cause excessive overhead
  *
  * Usage:
- * Run with: npm test -- test/performance/scalability.test.ts
+ * Run with: yarn test test/performance/scalability.test.ts
  *
  * Note: These tests help identify performance bottlenecks and ensure the library
  * can handle growing data requirements efficiently.

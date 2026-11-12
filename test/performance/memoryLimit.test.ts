@@ -32,7 +32,7 @@
  * - Accounts for garbage collection variance
  *
  * Usage:
- * Run with: npm test -- test/performance/memoryLimit.test.ts
+ * Run with: yarn test test/performance/memoryLimit.test.ts
  *
  * Note: These tests may be affected by Node.js garbage collection behavior.
  * For more accurate results, run with --expose-gc flag to enable manual GC.
