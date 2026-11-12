@@ -29,7 +29,7 @@
  * - Includes minimum performance checks to ensure operations complete
  *
  * Usage:
- * Run with: npm test -- test/performance/timeLimit.test.ts
+ * Run with: yarn test test/performance/timeLimit.test.ts
  *
  * @author Performance Test Suite
  * @version 1.0.0

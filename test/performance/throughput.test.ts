@@ -35,7 +35,7 @@
  * - Accounts for actual execution time vs target duration
  *
  * Usage:
- * Run with: npm test -- test/performance/throughput.test.ts
+ * Run with: yarn test test/performance/throughput.test.ts
  *
  * Note: Throughput may vary based on system performance and current load.
  * These tests provide relative performance indicators rather than absolute benchmarks.
