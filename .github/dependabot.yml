@@ -9,15 +9,13 @@ updates:
     schedule:
       interval: weekly
     groups:
-      development-dependencies:
-        dependency-type: development
-        # Majors get their own PRs so one breaking bump (e.g. a new Node engine
-        # requirement) cannot block the safe minor/patch updates.
-        update-types:
-          - minor
-          - patch
+      non-major:
+        update-types: [minor, patch]
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      non-major:
+        update-types: [minor, patch]
